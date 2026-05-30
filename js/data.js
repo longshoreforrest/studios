@@ -19,8 +19,10 @@
  *   cover     – polku oikeaan kansikuvaan, tai null (=generoidaan emojista)
  *   featured  – nostetaanko etusivun "Nostot"-osioon
  *   public    – julkaistaanko tämä peli julkiseen repoon (PUBLISH.md)
- *   links     – { windows, android, ios } – lataus-URL per alusta (PC/Android/
- *               iPhone). "#" = paikkamerkki (täytä oikea kauppalinkki),
+ *   links     – { windows, android, ios } – latauskohde per alusta (PC/Android/
+ *               iPhone). Paikallinen tiedostopolku (esim. "downloads/x.zip")
+ *               → ladataan SUORAAN (download-attribuutti). http(s)-URL →
+ *               avataan uuteen välilehteen (esim. kauppalinkki).
  *               null = "Tulossa" (alusta näkyy valinnassa harmaana).
  *   versions  – vapaaehtoinen lista aiemmista versioista
  *
@@ -55,7 +57,7 @@ const GAMES = [
     cover: "assets/covers/lisko.png",
     featured: true,
     public: true,
-    links: { windows: "#", android: "#", ios: "#" },
+    links: { windows: "downloads/lisko-racing.zip", android: "downloads/lisko-racing.zip", ios: "downloads/lisko-racing.zip" },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
   },
   {
@@ -68,7 +70,7 @@ const GAMES = [
     cover: null,
     featured: true,
     public: true,
-    links: { windows: "#", android: null, ios: null },
+    links: { windows: "downloads/bettercraft.zip", android: null, ios: null },
   },
   {
     id: "kalastus",
@@ -80,7 +82,7 @@ const GAMES = [
     cover: null,
     featured: false,
     public: true,
-    links: { windows: "#", android: "#", ios: "#" },
+    links: { windows: "downloads/kalastus.zip", android: "downloads/kalastus.zip", ios: "downloads/kalastus.zip" },
   },
 ];
 

@@ -166,10 +166,16 @@
       const label = L().platforms[key];
       const icon = PLATFORM_ICON[key];
       if (url) {
+        const isFile = !/^https?:/i.test(url) && url !== "#";
         const a = el("a", "modal__opt");
         a.href = url;
-        if (url !== "#") { a.target = "_blank"; a.rel = "noopener"; }
-        a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}</span><span class="modal__opt-arrow">→</span>`;
+        if (isFile) {
+          a.setAttribute("download", "");           // lataa suoraan
+        } else if (url !== "#") {
+          a.target = "_blank"; a.rel = "noopener";   // ulkoinen kauppalinkki
+        }
+        const cue = isFile ? "⬇️" : "→";
+        a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}</span><span class="modal__opt-arrow">${cue}</span>`;
         a.addEventListener("click", () => {
           track("download_click", { game: g.title, platform: key });
           closeDownloadModal();
