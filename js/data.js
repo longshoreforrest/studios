@@ -55,7 +55,7 @@ const GAMES = [
     cover: "assets/covers/lisko.png",
     featured: true,
     public: true,
-    links: { windows: null, android: "#", ios: "#" },
+    links: { windows: "#", android: "#", ios: "#" },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
   },
   {
@@ -80,7 +80,7 @@ const GAMES = [
     cover: null,
     featured: false,
     public: true,
-    links: { windows: null, android: "#", ios: "#" },
+    links: { windows: "#", android: "#", ios: "#" },
   },
 ];
 
