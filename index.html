@@ -89,6 +89,17 @@
     </section>
   </main>
 
+  <!-- Lataa appi -> alustavalinta (PC / Android / iPhone) -->
+  <div class="modal" id="downloadModal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" type="button" data-close aria-label="Sulje">&times;</button>
+      <h3 class="modal__title" id="modalTitle"></h3>
+      <p class="modal__sub" id="modalSub"></p>
+      <div class="modal__options" id="modalOptions"></div>
+    </div>
+  </div>
+
   <footer class="footer">
     <p>© <span id="year"></span> Longshore Studios · <span data-i18n="footerTagline">Tehty intohimosta peleihin 🦎</span></p>
     <p class="footer__small" data-i18n="footerSmall">Teemoja voi vaihtaa oikeasta yläkulmasta.</p>

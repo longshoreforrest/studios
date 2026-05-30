@@ -62,11 +62,13 @@ const I18N = {
       footerTagline: "Tehty intohimosta peleihin 🦎",
       footerSmall: "Teemoja ja kieltä voi vaihtaa oikeasta yläkulmasta.",
       comingSoon: "Tulossa",
+      downloadApp: "Lataa appi",
+      choosePlatform: "Millä laitteella pelaat?",
       ageSuffix: "v.",
       langLabel: "Vaihda kieli",
     },
     studio: {
-      tagline: "Pikkukäsistä isoja pelejä.",
+      tagline: "",
       blurb:
         "Riippumaton pelistudio, joka tekee selaimessa pyöriviä pelejä ja " +
         "julkaisee niitä Androidille, iPhonelle ja työpöydälle. Kaikki pelit " +
@@ -86,7 +88,7 @@ const I18N = {
     },
     status: { released: "Julkaistu", "in-development": "Työn alla", prototype: "Prototyyppi" },
     filters: { all: "Kaikki", released: "Julkaistut", "in-development": "Työn alla", prototype: "Prototyypit" },
-    platforms: { web: "Pelaa selaimessa", android: "Android", ios: "iPhone", windows: "Windows" },
+    platforms: { web: "Pelaa selaimessa", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
         tagline: "Studion lippulaiva — loputon matelijajuoksu.",
@@ -141,11 +143,13 @@ const I18N = {
       footerTagline: "Made with passion for games 🦎",
       footerSmall: "Switch theme and language from the top right.",
       comingSoon: "Coming soon",
+      downloadApp: "Download app",
+      choosePlatform: "Which device do you play on?",
       ageSuffix: "yrs",
       langLabel: "Change language",
     },
     studio: {
-      tagline: "Big games from small hands.",
+      tagline: "",
       blurb:
         "An independent game studio making browser-based games and releasing " +
         "them for Android, iPhone and desktop. Every game is downloadable " +
@@ -165,7 +169,7 @@ const I18N = {
     },
     status: { released: "Released", "in-development": "In development", prototype: "Prototype" },
     filters: { all: "All", released: "Released", "in-development": "In development", prototype: "Prototypes" },
-    platforms: { web: "Play in browser", android: "Android", ios: "iPhone", windows: "Windows" },
+    platforms: { web: "Play in browser", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
         tagline: "The studio's flagship — an endless reptile runner.",
@@ -220,11 +224,13 @@ const I18N = {
       footerTagline: "Gjort med passion för spel 🦎",
       footerSmall: "Byt tema och språk uppe till höger.",
       comingSoon: "Kommer snart",
+      downloadApp: "Ladda ner appen",
+      choosePlatform: "Vilken enhet spelar du på?",
       ageSuffix: "år",
       langLabel: "Byt språk",
     },
     studio: {
-      tagline: "Stora spel från små händer.",
+      tagline: "",
       blurb:
         "En oberoende spelstudio som gör webbläsarbaserade spel och släpper " +
         "dem för Android, iPhone och dator. Alla spel kan laddas ner direkt " +
@@ -244,7 +250,7 @@ const I18N = {
     },
     status: { released: "Släppt", "in-development": "Under arbete", prototype: "Prototyp" },
     filters: { all: "Alla", released: "Släppta", "in-development": "Under arbete", prototype: "Prototyper" },
-    platforms: { web: "Spela i webbläsaren", android: "Android", ios: "iPhone", windows: "Windows" },
+    platforms: { web: "Spela i webbläsaren", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
         tagline: "Studions flaggskepp — en oändlig reptillöpare.",

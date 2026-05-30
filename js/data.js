@@ -19,7 +19,9 @@
  *   cover     – polku oikeaan kansikuvaan, tai null (=generoidaan emojista)
  *   featured  – nostetaanko etusivun "Nostot"-osioon
  *   public    – julkaistaanko tämä peli julkiseen repoon (PUBLISH.md)
- *   links     – { web, android, ios, windows } – URL tai null (=alusta pois)
+ *   links     – { windows, android, ios } – lataus-URL per alusta (PC/Android/
+ *               iPhone). "#" = paikkamerkki (täytä oikea kauppalinkki),
+ *               null = "Tulossa" (alusta näkyy valinnassa harmaana).
  *   versions  – vapaaehtoinen lista aiemmista versioista
  *
  * Tekstit (tagline, description, tags) tulevat i18n.js:stä avaimella id.
@@ -53,7 +55,7 @@ const GAMES = [
     cover: "assets/covers/lisko.png",
     featured: true,
     public: true,
-    links: { web: "#", android: "#", ios: "#", windows: null },
+    links: { windows: null, android: "#", ios: "#" },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
   },
   {
@@ -66,7 +68,7 @@ const GAMES = [
     cover: null,
     featured: true,
     public: true,
-    links: { web: "#", android: null, ios: null, windows: "#" },
+    links: { windows: "#", android: null, ios: null },
   },
   {
     id: "kalastus",
@@ -78,7 +80,7 @@ const GAMES = [
     cover: null,
     featured: false,
     public: true,
-    links: { web: "#", android: null, ios: null, windows: null },
+    links: { windows: null, android: "#", ios: "#" },
   },
 ];
 
@@ -102,10 +104,11 @@ const STATUS_CLASS = {
   prototype: "status--proto",
 };
 
-/* Alustan ikoni (teksti tulee i18n.js:stä, ks. platforms). */
+/* Alustan ikoni (teksti tulee i18n.js:stä, ks. platforms).
+   "Lataa appi" -valinnassa näytetään alustat tässä järjestyksessä. */
 const PLATFORM_ICON = {
-  web: "🌐",
+  windows: "💻",
   android: "🤖",
   ios: "🍎",
-  windows: "🪟",
 };
+const PICKER_PLATFORMS = ["windows", "android", "ios"]; // PC, Android, iPhone

@@ -106,7 +106,9 @@
 
   /* ---------- Hero / studio-tekstit ---------- */
   function fillStudio() {
-    $("#studioTagline").textContent = L().studio.tagline;
+    const tagEl = $("#studioTagline");
+    tagEl.textContent = L().studio.tagline || "";
+    tagEl.style.display = L().studio.tagline ? "" : "none";
     $("#studioBlurb").textContent = L().studio.blurb;
     $("#aboutText").textContent = L().studio.blurb;
     const contact = $("#contactLink");
@@ -141,18 +143,59 @@
     return `<div class="card__cover" style="${grad}">${inner}${statusBadge(g)}</div>`;
   }
 
-  function platformsHTML(g) {
-    return ["web", "android", "ios", "windows"]
-      .map((key) => {
-        const url = g.links[key];
-        if (!url) return "";
-        const label = L().platforms[key];
-        const icon = PLATFORM_ICON[key];
-        const ext = url === "#" ? "" : ' target="_blank" rel="noopener"';
-        return `<a class="plat" href="${esc(url)}"${ext}><span>${icon}</span>${esc(label)}</a>`;
-      })
-      .filter(Boolean)
-      .join("");
+  function downloadBtnHTML(g) {
+    return `<button class="btn btn--primary btn--download" type="button" data-game="${esc(g.id)}">
+              <span>⬇️</span> ${esc(L().ui.downloadApp)}
+            </button>`;
+  }
+
+  /* ---------- "Lataa appi" -modaali: alustavalinta ---------- */
+  let lastFocus = null;
+
+  function openDownloadModal(gameId) {
+    const g = VISIBLE_GAMES.find((x) => x.id === gameId);
+    if (!g) return;
+    const modal = $("#downloadModal");
+    $("#modalTitle").textContent = `${L().ui.downloadApp} · ${g.title}`;
+    $("#modalSub").textContent = L().ui.choosePlatform;
+
+    const opts = $("#modalOptions");
+    opts.innerHTML = "";
+    PICKER_PLATFORMS.forEach((key) => {
+      const url = g.links[key];
+      const label = L().platforms[key];
+      const icon = PLATFORM_ICON[key];
+      if (url) {
+        const a = el("a", "modal__opt");
+        a.href = url;
+        if (url !== "#") { a.target = "_blank"; a.rel = "noopener"; }
+        a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}</span><span class="modal__opt-arrow">→</span>`;
+        a.addEventListener("click", () => {
+          track("download_click", { game: g.title, platform: key });
+          closeDownloadModal();
+        });
+        opts.appendChild(a);
+      } else {
+        const d = el("div", "modal__opt modal__opt--soon");
+        d.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}</span><span class="modal__opt-soon">${esc(L().ui.comingSoon)}</span>`;
+        opts.appendChild(d);
+      }
+    });
+
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    track("download_app_open", { game: g.title });
+    const closeBtn = $(".modal__close", modal);
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeDownloadModal() {
+    const modal = $("#downloadModal");
+    if (modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
   function cardHTML(g, featured) {
@@ -167,7 +210,7 @@
           <p class="card__desc">${esc(t.description)}</p>
           <div class="card__tags">${tags}</div>
           <p class="card__tech">${esc(g.tech)}</p>
-          <div class="card__platforms">${platformsHTML(g)}</div>
+          <div class="card__platforms">${downloadBtnHTML(g)}</div>
         </div>
       </article>`;
   }
@@ -262,16 +305,14 @@
     );
     renderAll();
 
-    // Seuraa lataus-/pelilinkkien klikkauksia (peli + alusta).
+    // "Lataa appi" -napit avaavat alustavalinnan.
     document.addEventListener("click", (e) => {
-      const plat = e.target.closest && e.target.closest(".plat");
-      if (!plat) return;
-      const card = plat.closest(".card");
-      const title = card ? card.querySelector(".card__title") : null;
-      track("download_click", {
-        game: title ? title.textContent.trim() : null,
-        platform: plat.textContent.trim(),
-      });
+      const btn = e.target.closest && e.target.closest(".btn--download");
+      if (btn) { openDownloadModal(btn.dataset.game); return; }
+      if (e.target.closest && e.target.closest("[data-close]")) closeDownloadModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDownloadModal();
     });
   });
 })();
