@@ -57,7 +57,11 @@ const GAMES = [
     cover: "assets/covers/lisko.png",
     featured: true,
     public: true,
-    links: { windows: "downloads/lisko-racing.zip", android: "downloads/lisko-racing.zip", ios: "downloads/lisko-racing.zip" },
+    links: {
+      windows: "downloads/lisko-racing.zip",
+      android: "downloads/builds/lisko-racing/android/lisko-racing.apk", // oikea APK (debug-build)
+      ios: "downloads/lisko-racing.zip",
+    },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
   },
   {
