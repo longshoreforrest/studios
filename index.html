@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fi" data-theme="midnight">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Longshore Studios — Pelistudio</title>
+  <meta name="description" content="Longshore Studios — riippumaton pelistudio. Selaimessa pyöriviä pelejä Androidille, iPhonelle ja työpöydälle. Pääkehittäjä Hacker_Lisko." />
+  <link rel="icon" href="assets/covers/lisko.png" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+</head>
+<body>
+  <!-- Navigaatio -->
+  <header class="nav">
+    <a class="nav__brand" href="#top">
+      <span class="nav__logo">🦎</span>
+      <span class="nav__name">Longshore <em>Studios</em></span>
+    </a>
+    <nav class="nav__links">
+      <a href="#games" data-i18n="navGames">Pelit</a>
+      <a href="#developer" data-i18n="navDeveloper">Kehittäjä</a>
+      <a href="#about" data-i18n="navAbout">Studio</a>
+    </nav>
+    <div class="nav__controls">
+      <div class="lang-switch" id="langSwitch" aria-label="Vaihda kieli">
+        <!-- Kielinapit (liput) injektoidaan js/main.js:ssä -->
+      </div>
+      <div class="theme-switch" id="themeSwitch" aria-label="Vaihda teemaa">
+        <!-- Teemanapit injektoidaan js/main.js:ssä -->
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="hero__eyebrow" data-i18n="heroEyebrow">Indie-pelistudio</p>
+        <h1 class="hero__title">Longshore <em>Studios</em></h1>
+        <p class="hero__tagline" id="studioTagline"></p>
+        <p class="hero__blurb" id="studioBlurb"></p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#games" data-i18n="heroCta1">Selaa pelejä</a>
+          <a class="btn btn--ghost" href="#developer" data-i18n="heroCta2">Tapaa kehittäjä</a>
+        </div>
+        <div class="hero__stats" id="heroStats"></div>
+      </div>
+    </section>
+
+    <!-- Flagship-nostot -->
+    <section class="featured" id="featured" aria-label="Nostot">
+      <div class="section-head">
+        <h2 data-i18n="featuredHead">Nostot</h2>
+        <p data-i18n="featuredSub">Studion lippulaivat juuri nyt.</p>
+      </div>
+      <div class="featured__grid" id="featuredGrid"></div>
+    </section>
+
+    <!-- Kaikki pelit -->
+    <section class="games" id="games">
+      <div class="section-head">
+        <h2 data-i18n="gamesHead">Pelit</h2>
+        <p data-i18n="gamesSub">Kaikki studion pelit — julkaistut, työn alla ja prototyypit.</p>
+      </div>
+      <div class="filters" id="filters" aria-label="Suodata pelit"></div>
+      <div class="games__grid" id="gamesGrid"></div>
+    </section>
+
+    <!-- Kehittäjäprofiili -->
+    <section class="developer" id="developer">
+      <div class="section-head">
+        <h2 data-i18n="developerHead">Kehittäjä</h2>
+        <p data-i18n="developerSub">Studion sydän ja koodaava aivot.</p>
+      </div>
+      <div class="dev-card" id="devCard"></div>
+    </section>
+
+    <!-- Studio / about -->
+    <section class="about" id="about">
+      <div class="about__inner">
+        <h2 data-i18n="aboutHead">Tietoa studiosta</h2>
+        <p id="aboutText"></p>
+        <p class="about__contact">
+          <span data-i18n="aboutContact">Yhteydenotot:</span>
+          <a id="contactLink" href="#" data-i18n="aboutContactLabel">sähköposti</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Longshore Studios · <span data-i18n="footerTagline">Tehty intohimosta peleihin 🦎</span></p>
+    <p class="footer__small" data-i18n="footerSmall">Teemoja voi vaihtaa oikeasta yläkulmasta.</p>
+  </footer>
+
+  <script src="js/build-flags.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- MyPublicAnalytics: tunnus "studios". Endpoint asetetaan julkaisussa
+       (paikallisesti tyhjä = ei lähetystä). -->
+  <script src="js/analytics-config.js"></script>
+  <script src="js/analytics.js" defer></script>
+</body>
+</html>

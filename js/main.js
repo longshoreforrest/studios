@@ -1,0 +1,277 @@
+/* Longshore Studios — sivun logiikka.
+   Renderöi pelit, kehittäjäprofiilin ja tekstit valitulla kielellä
+   (js/i18n.js) ja rakenteella (js/data.js). Hoitaa teeman- ja kielenvaihdon
+   (talletus localStorageen), suodattimet ja reveal-animaatiot.
+   Ei riippuvuuksia, toimii myös file://-tilassa. */
+
+(function () {
+  "use strict";
+
+  // Julkaisussa (LS_PUBLIC_BUILD) näytetään vain julkiset pelit.
+  const VISIBLE_GAMES = window.LS_PUBLIC_BUILD ? GAMES.filter((g) => g.public) : GAMES;
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const el = (tag, cls, html) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  };
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* file:// voi estää */ } },
+  };
+
+  // MyPublicAnalytics-tapahtuma (no-op jos beacon ei ole aktiivinen).
+  const track = (event, extra) => {
+    if (window.mypa && typeof window.mypa.send === "function") window.mypa.send(event, extra);
+  };
+
+  /* ---------- Kieli ---------- */
+  const LANG_KEY = "ls-lang";
+  let currentLang = (() => {
+    const saved = store.get(LANG_KEY);
+    return LANGUAGES.some((l) => l.code === saved) ? saved : LANGUAGES[0].code;
+  })();
+  const L = () => I18N[currentLang];
+
+  function buildLangSwitch() {
+    const host = $("#langSwitch");
+    if (!host) return;
+    host.setAttribute("aria-label", L().ui.langLabel);
+    LANGUAGES.forEach((lang) => {
+      const b = el("button", "lang-btn", FLAGS[lang.code] + `<span>${lang.short}</span>`);
+      b.type = "button";
+      b.dataset.lang = lang.code;
+      b.title = lang.label;
+      b.setAttribute("aria-label", lang.label);
+      b.addEventListener("click", () => setLang(lang.code));
+      host.appendChild(b);
+    });
+  }
+
+  function setLang(code) {
+    if (!I18N[code]) return;
+    currentLang = code;
+    store.set(LANG_KEY, code);
+    document.querySelectorAll(".lang-btn").forEach((b) =>
+      b.classList.toggle("is-active", b.dataset.lang === code)
+    );
+    track("language_change", { lang: code });
+    renderAll();
+  }
+
+  /* ---------- Teemat ---------- */
+  const THEME_KEY = "ls-theme";
+  const root = document.documentElement;
+
+  function applyTheme(key) {
+    root.setAttribute("data-theme", key);
+    store.set(THEME_KEY, key);
+    document.querySelectorAll(".theme-btn").forEach((b) =>
+      b.classList.toggle("is-active", b.dataset.theme === key)
+    );
+  }
+
+  function buildThemeSwitch() {
+    const host = $("#themeSwitch");
+    if (!host) return;
+    const saved = store.get(THEME_KEY);
+    const active = THEMES.some((t) => t.key === saved) ? saved : THEMES[0].key;
+    THEMES.forEach((t) => {
+      const b = el("button", "theme-btn", t.emoji);
+      b.dataset.theme = t.key;
+      b.type = "button";
+      b.title = t.label;
+      b.setAttribute("aria-label", t.label);
+      b.addEventListener("click", () => { applyTheme(t.key); track("theme_change", { theme: t.key }); });
+      host.appendChild(b);
+    });
+    applyTheme(active);
+  }
+
+  /* ---------- Staattiset tekstit ([data-i18n]) ---------- */
+  function applyStaticTranslations() {
+    const ui = L().ui;
+    document.querySelectorAll("[data-i18n]").forEach((n) => {
+      const key = n.getAttribute("data-i18n");
+      if (ui[key] != null) n.textContent = ui[key];
+    });
+    root.setAttribute("lang", currentLang);
+  }
+
+  /* ---------- Hero / studio-tekstit ---------- */
+  function fillStudio() {
+    $("#studioTagline").textContent = L().studio.tagline;
+    $("#studioBlurb").textContent = L().studio.blurb;
+    $("#aboutText").textContent = L().studio.blurb;
+    const contact = $("#contactLink");
+    contact.href = "mailto:" + STUDIO.email;
+    $("#year").textContent = "2026";
+
+    const released = VISIBLE_GAMES.filter((g) => g.status === "released").length;
+    const stats = [
+      { n: VISIBLE_GAMES.length, label: L().ui.statGames },
+      { n: released, label: L().ui.statReleased },
+      { n: DEVELOPER.age, label: L().ui.statDevAge },
+    ];
+    const host = $("#heroStats");
+    host.innerHTML = "";
+    stats.forEach((s) => {
+      host.appendChild(el("div", "stat", `<b>${s.n}</b><span>${esc(s.label)}</span>`));
+    });
+  }
+
+  /* ---------- Pelikortit ---------- */
+  function statusBadge(g) {
+    const cls = STATUS_CLASS[g.status] || "status--proto";
+    const label = L().status[g.status] || g.status;
+    return `<span class="card__status ${cls}">${esc(label)}</span>`;
+  }
+
+  function coverHTML(g) {
+    const grad = `background:linear-gradient(135deg, ${g.accent[0]}, ${g.accent[1]})`;
+    const inner = g.cover
+      ? `<img src="${esc(g.cover)}" alt="${esc(g.title)}" loading="lazy" />`
+      : `<span class="card__cover-emoji">${g.emoji}</span>`;
+    return `<div class="card__cover" style="${grad}">${inner}${statusBadge(g)}</div>`;
+  }
+
+  function platformsHTML(g) {
+    return ["web", "android", "ios", "windows"]
+      .map((key) => {
+        const url = g.links[key];
+        if (!url) return "";
+        const label = L().platforms[key];
+        const icon = PLATFORM_ICON[key];
+        const ext = url === "#" ? "" : ' target="_blank" rel="noopener"';
+        return `<a class="plat" href="${esc(url)}"${ext}><span>${icon}</span>${esc(label)}</a>`;
+      })
+      .filter(Boolean)
+      .join("");
+  }
+
+  function cardHTML(g, featured) {
+    const t = L().games[g.id] || { tagline: "", description: "", tags: [] };
+    const tags = (t.tags || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("");
+    return `
+      <article class="card reveal ${featured ? "card--featured" : ""}" data-status="${g.status}">
+        ${coverHTML(g)}
+        <div class="card__body">
+          <h3 class="card__title">${g.emoji} ${esc(g.title)}</h3>
+          <p class="card__tagline">${esc(t.tagline)}</p>
+          <p class="card__desc">${esc(t.description)}</p>
+          <div class="card__tags">${tags}</div>
+          <p class="card__tech">${esc(g.tech)}</p>
+          <div class="card__platforms">${platformsHTML(g)}</div>
+        </div>
+      </article>`;
+  }
+
+  let currentFilter = "all";
+
+  function renderGames() {
+    const featuredHost = $("#featuredGrid");
+    featuredHost.innerHTML = "";
+    VISIBLE_GAMES.filter((g) => g.featured).forEach((g) => {
+      featuredHost.insertAdjacentHTML("beforeend", cardHTML(g, true));
+    });
+
+    const grid = $("#gamesGrid");
+    function paint(filter) {
+      currentFilter = filter;
+      grid.innerHTML = "";
+      VISIBLE_GAMES.filter((g) => filter === "all" || g.status === filter).forEach((g) => {
+        grid.insertAdjacentHTML("beforeend", cardHTML(g, false));
+      });
+      observeReveal();
+    }
+
+    const filters = ["all", "released", "in-development", "prototype"];
+    const fhost = $("#filters");
+    fhost.innerHTML = "";
+    filters.forEach((key) => {
+      const active = key === currentFilter;
+      const b = el("button", "filter-btn" + (active ? " is-active" : ""), esc(L().filters[key]));
+      b.type = "button";
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("is-active"));
+        b.classList.add("is-active");
+        paint(key);
+      });
+      fhost.appendChild(b);
+    });
+
+    paint(currentFilter);
+  }
+
+  /* ---------- Kehittäjäprofiili ---------- */
+  function renderDeveloper() {
+    const d = DEVELOPER;
+    const tr = L().developer;
+    const facts = tr.funFacts.map((f) => `<li>${esc(f)}</li>`).join("");
+    const role = tr.role.replace("{age}", d.age);
+    const card = $("#devCard");
+    card.innerHTML = `
+      <div class="dev-card__avatar">${d.emoji}</div>
+      <div>
+        <h3 class="dev-card__handle">${esc(d.handle)}</h3>
+        <p class="dev-card__role">${esc(role)}</p>
+        <p class="dev-card__bio">${esc(tr.bio)}</p>
+        <ul class="dev-card__facts">${facts}</ul>
+      </div>`;
+    card.classList.add("reveal");
+  }
+
+  /* ---------- Reveal-animaatio ---------- */
+  let io;
+  function observeReveal() {
+    if (!("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-visible"));
+      return;
+    }
+    if (!io) {
+      io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+    }
+    document.querySelectorAll(".reveal:not(.is-visible)").forEach((n) => io.observe(n));
+  }
+
+  /* ---------- Renderöi koko sisältö (kielenvaihdossa uudelleen) ---------- */
+  function renderAll() {
+    applyStaticTranslations();
+    fillStudio();
+    renderGames();
+    renderDeveloper();
+    observeReveal();
+  }
+
+  /* ---------- Init ---------- */
+  document.addEventListener("DOMContentLoaded", () => {
+    buildLangSwitch();
+    buildThemeSwitch();
+    document.querySelectorAll(".lang-btn").forEach((b) =>
+      b.classList.toggle("is-active", b.dataset.lang === currentLang)
+    );
+    renderAll();
+
+    // Seuraa lataus-/pelilinkkien klikkauksia (peli + alusta).
+    document.addEventListener("click", (e) => {
+      const plat = e.target.closest && e.target.closest(".plat");
+      if (!plat) return;
+      const card = plat.closest(".card");
+      const title = card ? card.querySelector(".card__title") : null;
+      track("download_click", {
+        game: title ? title.textContent.trim() : null,
+        platform: plat.textContent.trim(),
+      });
+    });
+  });
+})();

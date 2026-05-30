@@ -1,0 +1,121 @@
+/* Longshore Studios — teemat.
+   Jokainen teema asettaa samat muuttujat eri arvoilla. Teema valitaan
+   asettamalla <html data-theme="avain">. Avaimet vastaavat js/data.js:n
+   THEMES-listaa. Vähintään viisi tyyliä (tässä kuusi). */
+
+/* ---- 1. Midnight (oletus): tumma, indigo/syaani neon ---- */
+[data-theme="midnight"] {
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Segoe UI", system-ui, sans-serif;
+  --bg: #0b0f1a;
+  --surface: #131a2b;
+  --surface-2: #1b2540;
+  --surface-glass: rgba(11, 15, 26, .72);
+  --text: #eef2ff;
+  --muted: #97a3c4;
+  --border: #243049;
+  --accent: #6ea8ff;
+  --accent2: #22d3ee;
+  --accent-soft: rgba(110, 168, 255, .16);
+  --accent2-soft: rgba(34, 211, 238, .16);
+  --on-accent: #07101f;
+}
+
+/* ---- 2. Daylight: vaalea, raikas sininen ---- */
+[data-theme="daylight"] {
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Segoe UI", system-ui, sans-serif;
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --surface-glass: rgba(255, 255, 255, .78);
+  --text: #15203a;
+  --muted: #5a6781;
+  --border: #dde4ef;
+  --accent: #2563eb;
+  --accent2: #0ea5e9;
+  --accent-soft: rgba(37, 99, 235, .12);
+  --accent2-soft: rgba(14, 165, 233, .12);
+  --on-accent: #ffffff;
+  --shadow: 0 18px 50px -22px rgba(37, 99, 235, .35);
+}
+
+/* ---- 3. Synthwave: retro neon purppura/pinkki ---- */
+[data-theme="synthwave"] {
+  --font: "Segoe UI", system-ui, sans-serif;
+  --font-head: "Segoe UI", system-ui, sans-serif;
+  --bg: #160a2b;
+  --surface: #211043;
+  --surface-2: #2d1659;
+  --surface-glass: rgba(22, 10, 43, .74);
+  --text: #ffe9ff;
+  --muted: #c79be8;
+  --border: #46248a;
+  --accent: #ff5fd0;
+  --accent2: #ffb347;
+  --accent-soft: rgba(255, 95, 208, .18);
+  --accent2-soft: rgba(255, 179, 71, .16);
+  --on-accent: #1a0033;
+  --shadow: 0 18px 60px -18px rgba(255, 95, 208, .5);
+}
+
+/* ---- 4. Forest: luonnonläheinen vihreä ---- */
+[data-theme="forest"] {
+  --font: "Segoe UI", system-ui, sans-serif;
+  --font-head: "Segoe UI", system-ui, sans-serif;
+  --bg: #0c1711;
+  --surface: #122017;
+  --surface-2: #1a2e21;
+  --surface-glass: rgba(12, 23, 17, .74);
+  --text: #e7f6ec;
+  --muted: #92b6a1;
+  --border: #234433;
+  --accent: #4ade80;
+  --accent2: #a3e635;
+  --accent-soft: rgba(74, 222, 128, .16);
+  --accent2-soft: rgba(163, 230, 53, .14);
+  --on-accent: #052012;
+}
+
+/* ---- 5. Arcade: kirkas ja leikkisä (lapsiystävällinen) ---- */
+[data-theme="arcade"] {
+  --font: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-head: "Trebuchet MS", "Segoe UI", sans-serif;
+  --bg: #fff7ec;
+  --surface: #ffffff;
+  --surface-2: #fff0d6;
+  --surface-glass: rgba(255, 247, 236, .82);
+  --text: #2b1a4a;
+  --muted: #7a5c8f;
+  --border: #ffd28a;
+  --accent: #ff4d8d;
+  --accent2: #ffb300;
+  --accent-soft: rgba(255, 77, 141, .14);
+  --accent2-soft: rgba(255, 179, 0, .18);
+  --on-accent: #ffffff;
+  --radius: 22px;
+  --shadow: 0 16px 44px -18px rgba(255, 77, 141, .45);
+}
+
+/* ---- 6. Hacker: terminaali vihreä mustalla (kunnia Hacker_Liskolle) ---- */
+[data-theme="hacker"] {
+  --font: "Consolas", "Courier New", ui-monospace, monospace;
+  --font-head: "Consolas", "Courier New", ui-monospace, monospace;
+  --bg: #03070a;
+  --surface: #07120c;
+  --surface-2: #0a1a10;
+  --surface-glass: rgba(3, 7, 10, .8);
+  --text: #b9ffce;
+  --muted: #4fa86c;
+  --border: #14391f;
+  --accent: #2bff88;
+  --accent2: #00d4ff;
+  --accent-soft: rgba(43, 255, 136, .12);
+  --accent2-soft: rgba(0, 212, 255, .1);
+  --on-accent: #02160a;
+  --radius: 8px;
+  --radius-sm: 6px;
+}
+[data-theme="hacker"] .hero__title,
+[data-theme="hacker"] .nav__name { text-shadow: 0 0 12px var(--accent); }
+[data-theme="hacker"] .card { box-shadow: inset 0 0 0 1px rgba(43,255,136,.04); }
