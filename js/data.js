@@ -60,7 +60,7 @@ const GAMES = [
     public: true,
     links: {
       windows: "downloads/lisko-racing.zip",
-      android: "downloads/builds/lisko-racing/android/lisko-racing-1.0.1.apk", // oikea APK (debug-build)
+      android: "downloads/builds/lisko-racing/android/lisko-racing.apk", // oikea APK (debug-build)
       ios: "downloads/lisko-racing.zip",
     },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
