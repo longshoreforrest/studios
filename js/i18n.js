@@ -88,14 +88,14 @@ const I18N = {
         "Tavoite: julkaista oma peli Google Playssa",
       ],
     },
-    stages: { ga: "Kaikille auki 🎉", beta: "Beta 🧪", alpha: "Alfa 🔧", secret: "Salainen 🤫" },
+    stages: { ga: "Kaikille saatavilla 🎉", beta: "Beta 🧪", alpha: "Alfa 🔧", secret: "Salainen 🤫" },
     stageHints: {
       ga: "Valmis kaikille — pelaa heti!",
       beta: "Toimii melkein aina. Bugit kuuluvat seikkailuun.",
       alpha: "Tuore ja vähän rikki — vain rohkeille testaajille.",
       secret: "Hyssytään! Sisäpiirin koekäytössä.",
     },
-    filters: { all: "Kaikki", ga: "Kaikille auki", beta: "Beta", alpha: "Alfa" },
+    filters: { all: "Kaikki", ga: "Kaikille saatavilla", beta: "Beta", alpha: "Alfa" },
     platforms: { web: "Pelaa selaimessa", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
