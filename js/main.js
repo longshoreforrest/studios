@@ -106,6 +106,17 @@
     document.querySelectorAll(".theme-btn").forEach((b) =>
       b.classList.toggle("is-active", b.dataset.theme === key)
     );
+    updateThemeCycle(key);
+  }
+
+  // Mobiilin kierto-napin sisältö = nykyinen teema + kierto-nuoli.
+  function updateThemeCycle(key) {
+    const btn = $("#themeCycle");
+    if (!btn) return;
+    const t = THEMES.find((x) => x.key === key) || THEMES[0];
+    btn.innerHTML =
+      `<span class="tc-emoji">${t.emoji}</span><span class="tc-label">${esc(t.label)}</span><span class="tc-arrow">↻</span>`;
+    btn.title = t.label;
   }
 
   function buildThemeSwitch() {
@@ -122,6 +133,19 @@
       b.addEventListener("click", () => { applyTheme(t.key); track("theme_change", { theme: t.key }); });
       host.appendChild(b);
     });
+
+    // Mobiilin kierto-nappi: klikkaus siirtyy seuraavaan teemaan (kiertää).
+    const cycleBtn = $("#themeCycle");
+    if (cycleBtn) {
+      cycleBtn.addEventListener("click", () => {
+        const cur = root.getAttribute("data-theme");
+        const idx = THEMES.findIndex((t) => t.key === cur);
+        const next = THEMES[(idx + 1) % THEMES.length];
+        applyTheme(next.key);
+        track("theme_change", { theme: next.key });
+      });
+    }
+
     applyTheme(active);
   }
 

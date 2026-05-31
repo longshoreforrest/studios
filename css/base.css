@@ -68,6 +68,17 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
 .lang-btn .flag { width: 20px; height: 13px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.18); flex: none; }
 
 .theme-switch { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Mobiilin kierto-nappi: yksi nappi joka vaihtaa teemaa klikkaamalla. */
+.theme-cycle {
+  display: none; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  cursor: pointer; font-weight: 700; font-size: .82rem;
+  transition: border-color var(--t), transform var(--t);
+}
+.theme-cycle:hover { border-color: var(--accent); transform: translateY(-1px); }
+.theme-cycle .tc-emoji { font-size: 1.1rem; }
+.theme-cycle .tc-arrow { color: var(--accent); font-weight: 900; }
 .theme-btn {
   width: 34px; height: 34px; border-radius: 50%;
   border: 2px solid var(--border); cursor: pointer;
@@ -83,7 +94,8 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
   .nav__controls { margin-left: auto; }
   .lang-btn span { display: none; }       /* mobiilissa pelkkä lippu */
   .lang-btn { padding: 6px; }
-  .theme-switch { max-width: 160px; }
+  .theme-switch { display: none; }        /* koko rivi piiloon */
+  .theme-cycle { display: inline-flex; }  /* yksi kierto-nappi tilalle */
 }
 
 /* ---------- Hero ---------- */
