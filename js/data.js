@@ -84,7 +84,7 @@ const GAMES = [
     stage: "wip",
     tech: "Three.js · Electron · Firebase",
     accent: ["#65a30d", "#155e75"],
-    cover: null,
+    cover: "assets/covers/futurecraft.jpg",
     featured: true,
     public: true,
     links: { windows: "downloads/bettercraft.zip", android: null, ios: null },
