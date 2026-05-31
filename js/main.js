@@ -46,6 +46,22 @@
   }
   const USER_DEVICE = detectDevice();
 
+  // Tarkempi käyttöjärjestelmä analytiikkaa varten (erottaa Windows vs Mac).
+  function detectOS() {
+    const nav = window.navigator || {};
+    const ua = (nav.userAgent || "").toLowerCase();
+    const p = (nav.platform || "").toLowerCase();
+    const s = ua + " " + p;
+    if (/android/.test(s)) return "Android";
+    if (/iphone|ipod/.test(s)) return "iOS";
+    if (/ipad/.test(s) || (/mac/.test(p) && (nav.maxTouchPoints || 0) > 1)) return "iPadOS";
+    if (/win/.test(s)) return "Windows";
+    if (/mac/.test(s)) return "macOS";
+    if (/linux/.test(s)) return "Linux";
+    return "Unknown";
+  }
+  const USER_OS = detectOS();
+
   /* ---------- Kieli ---------- */
   const LANG_KEY = "ls-lang";
   let currentLang = (() => {
@@ -204,7 +220,14 @@
         const cue = isFile ? "⬇️" : "→";
         a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}${recBadge}</span><span class="modal__opt-arrow">${cue}</span>`;
         a.addEventListener("click", () => {
-          track("download_click", { game: g.title, platform: key, recommended: isRec });
+          // game = mikä peli, platform = valittu latausnappi (PC/Android/iPhone),
+          // device = käyttäjän OS (Windows/macOS/Android/iOS) → erottaa Win vs Mac.
+          track("download_click", {
+            game: g.title,
+            platform: key,
+            device: USER_OS,
+            recommended: isRec,
+          });
           closeDownloadModal();
         });
         opts.appendChild(a);
@@ -218,7 +241,7 @@
     lastFocus = document.activeElement;
     modal.hidden = false;
     document.body.style.overflow = "hidden";
-    track("download_app_open", { game: g.title });
+    track("download_app_open", { game: g.title, device: USER_OS });
     const closeBtn = $(".modal__close", modal);
     if (closeBtn) closeBtn.focus();
   }
