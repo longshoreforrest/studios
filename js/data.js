@@ -70,6 +70,7 @@ const GAMES = [
     featured: true,
     public: true,
     links: {
+      web: "liskoracing/index.html", // Pelaa selaimessa (web-julkaisu, ks. PublishWeb.MD)
       windows: "downloads/lisko-racing.zip",
       android: "downloads/builds/lisko-racing/android/lisko-racing.apk", // oikea APK (debug-build)
       ios: "downloads/lisko-racing.zip",
@@ -129,8 +130,10 @@ const STAGE_CLASS = {
 /* Alustan ikoni (teksti tulee i18n.js:stä, ks. platforms).
    "Lataa appi" -valinnassa näytetään alustat tässä järjestyksessä. */
 const PLATFORM_ICON = {
+  web: "🌐",
   windows: "💻",
   android: "🤖",
   ios: "🍎",
 };
-const PICKER_PLATFORMS = ["windows", "android", "ios"]; // PC, Android, iPhone
+// "web" = Pelaa selaimessa (avaa pelin uuteen välilehteen, ei lataa).
+const PICKER_PLATFORMS = ["web", "windows", "android", "ios"]; // selain, PC, Android, iPhone

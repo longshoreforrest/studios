@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisko Racing 🦎</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#38a854">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lisko">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <!-- HUD -->
+        <div id="hud">
+            <div id="score">🪰 Kärpäset: <span id="score-value">0</span></div>
+            <div id="speed">⚡ Nopeus: <span id="speed-value">1.0</span>x</div>
+            <button id="fly-btn" type="button" style="display:none;">✈️ LENTO</button>
+            <div id="invincible-hud" style="display:none;">⭐ KUOLEMATON <span id="invincible-time">5.0</span>s</div>
+            <div id="powers-hud">
+                <span id="shield-hud" class="power-pill" style="display:none;"><span class="power-label">🛡️ Q</span> (<span id="shield-uses">0</span>)</span>
+                <span id="magnet-hud" class="power-pill" style="display:none;"><span class="power-label">🧲 E</span> (<span id="magnet-uses">0</span>)</span>
+                <span id="slowmo-hud" class="power-pill" style="display:none;"><span class="power-label">🐌 R</span> (<span id="slowmo-uses">0</span>)</span>
+                <span id="doubleScore-hud" class="power-pill" style="display:none;"><span class="power-label">✖️2 T</span> (<span id="doubleScore-uses">0</span>)</span>
+                <span id="turbo-hud" class="power-pill" style="display:none;"><span class="power-label">🚀 G</span> (<span id="turbo-uses">0</span>)</span>
+                <span id="lure-hud" class="power-pill" style="display:none;"><span class="power-label">🎺 V</span> (<span id="lure-uses">0</span>)</span>
+            </div>
+            <div id="boss-hp" class="hidden">
+                <span id="boss-hp-icon">🪰</span> POMO:
+                <span id="boss-hp-value">7</span>/<span id="boss-hp-max">7</span>
+                <span id="boss-hp-label">syöksyä</span>
+            </div>
+        </div>
+
+        <!-- Pause Button (top right) -->
+        <button id="pause-btn">⏸️</button>
+
+        <!-- Pause Screen -->
+        <div id="pause-screen" class="overlay hidden">
+            <div class="overlay-content pause-content">
+                <h1>⏸️ TAUKO</h1>
+                <p id="pause-score"></p>
+                <button id="resume-btn" class="pause-menu-btn">▶️ Jatka</button>
+                <button id="quit-btn" class="pause-menu-btn quit">🚪 Lopeta</button>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="overlay">
+            <div class="overlay-content">
+                <div id="language-selector">
+                    <button class="lang-btn selected" data-lang="fi">🇫🇮 Suomi</button>
+                    <button class="lang-btn" data-lang="sv">🇸🇪 Svenska</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+                </div>
+                <a id="manual-link" href="manual.html" target="_blank" rel="noopener">📖 Käsikirja / Manual / Handbok</a>
+                <h1>🦎 LISKO RACING</h1>
+                <p class="games-counter-display">🎮 Pelejä pelattu: <span id="games-counter">0</span></p>
+                <p>Väistele esteitä ja kerää kärpäsiä!</p>
+                <p class="controls">Ohjaus: ← → tai A D</p>
+                <p class="controls mobile-hint">📱 Pyyhkäise tai käytä nappeja</p>
+
+                <div id="auth-section">
+                    <!-- Login Form -->
+                    <div id="login-form">
+                        <h2 id="auth-title">Kirjaudu sisään</h2>
+                        <input type="text" id="auth-username" placeholder="Käyttäjätunnus" maxlength="15">
+                        <input type="password" id="auth-password" placeholder="Salasana">
+                        <div class="auth-buttons">
+                            <button type="button" id="login-btn" onclick="handleLogin()">Kirjaudu</button>
+                            <button type="button" id="register-btn" onclick="handleRegister()" class="secondary-btn">Luo
+                                tili</button>
+                        </div>
+                        <div id="auth-or" class="auth-divider">tai</div>
+                        <div id="google-signin-btn"></div>
+                    </div>
+
+                    <!-- Logged In State -->
+                    <div id="logged-in-state" class="hidden">
+                        <p><span id="logged-in-label">Kirjautuneena:</span> <strong id="current-username"></strong></p>
+                        <div class="auth-buttons-row">
+                            <button type="button" id="change-name-btn" onclick="changeNickname()"
+                                class="secondary-btn small">📝 Vaihda nimimerkki</button>
+                            <button type="button" id="sync-btn" onclick="syncToCloud()" class="secondary-btn small">☁️
+                                Synkronoi</button>
+                            <button type="button" id="logout-btn" onclick="logoutUser()"
+                                class="secondary-btn small">Kirjaudu ulos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="difficulty-selection">
+                    <p>Valitse vaikeustaso:</p>
+                    <div class="difficulty-buttons">
+                        <button class="diff-btn" data-diff="easy">Helppo 🟢</button>
+                        <button class="diff-btn selected" data-diff="normal">Normaali 🟡</button>
+                        <button class="diff-btn" data-diff="hard">Vaikea 🔴</button>
+                        <button class="diff-btn" data-diff="super">SUPER 🔥</button>
+                    </div>
+                </div>
+
+                <div id="biome-selection">
+                    <p>Valitse kartta:</p>
+                    <div class="biome-buttons">
+                        <button class="biome-btn selected" data-biome="jungle">🌴 Viidakko</button>
+                        <button class="biome-btn" data-biome="beach">🏖️ Ranta</button>
+                        <button class="biome-btn" data-biome="volcano">🌋 Tulivuori</button>
+                        <button class="biome-btn" data-biome="mountains">🏔️ Vuoristo</button>
+                        <button class="biome-btn" data-biome="caves">🕳️ Luolasto</button>
+                    </div>
+                </div>
+
+                <div id="quality-selection">
+                    <p>Grafiikka / Quality:</p>
+                    <div class="quality-buttons">
+                        <button class="quality-btn" data-quality="low">🐢 Low</button>
+                        <button class="quality-btn" data-quality="med">🦎 Med</button>
+                        <button class="quality-btn" data-quality="high">🦅 High</button>
+                    </div>
+                </div>
+
+                <button id="start-btn">ALOITA PELI</button>
+                <button id="boss-start-btn" class="hidden" onclick="startBossFight()">🪰⚔️ TAISTELE JÄTTIKÄRPÄSTÄ VASTAAN!</button>
+                <button id="lukitar-start-btn" class="hidden" onclick="startLukitarFight()">🕷️⚔️ TAISTELE LUKITARTA VASTAAN!</button>
+                <button id="jattilisko-start-btn" class="hidden" onclick="startJattiLiskoFight()">🦎⚔️ TAISTELE JÄTTI-LISKOA VASTAAN!</button>
+
+                <div id="shop-section">
+                    <!-- Shop UI will be rendered here by JavaScript -->
+                </div>
+
+                <div id="leaderboard-section">
+                    <h2>🏆 TOP 1000</h2>
+                    <div id="leaderboard-list">
+                        <p class="loading">Ladataan...</p>
+                    </div>
+                </div>
+
+                <div id="friends-section">
+                    <!-- Friends UI will be rendered here by JavaScript -->
+                </div>
+
+                <div id="requests-section">
+                    <!-- Feature requests UI will be rendered here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div id="mobile-controls">
+            <button id="mobile-left-btn" class="mobile-btn">◀</button>
+            <button id="mobile-right-btn" class="mobile-btn">▶</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="overlay hidden">
+            <div class="overlay-content">
+                <h1>💥 PELI PÄÄTTYI!</h1>
+                <p>Keräsit <span id="final-score">0</span> kärpästä!</p>
+                <p id="rank-message"></p>
+                <div id="game-over-leaderboard">
+                    <h3>🏆 TOP 10</h3>
+                    <div id="game-over-leaderboard-list"></div>
+                </div>
+                <button id="restart-btn">PELAA UUDELLEEN</button>
+                <button id="menu-btn" class="secondary-btn">🏠 VALIKKO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kill switch / deprecation modal. Näytetään käynnistyksessä jos
+         studios-sivulla oleva kill-switch JSON sanoo että tämä versio on
+         vanhentunut (RetireFirebase.MD). Muulloin display:none CSS:llä. -->
+    <div id="deprecation-modal" class="deprecation-modal" aria-hidden="true">
+        <div class="deprecation-content">
+            <div class="deprecation-emoji">🦎</div>
+            <h2>Lisko Racing</h2>
+            <p class="deprecation-message"></p>
+            <a class="deprecation-link" href="https://longshoreforrest.github.io/studios/" target="_blank" rel="noopener">Päivitä / Update</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+
+</html>

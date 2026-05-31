@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦎 Lisko Racing — Käsikirja / Manual / Handbok</title>
+    <style>
+        :root {
+            --bg-deep: #0e1a14;
+            --bg-mid: #1a2e22;
+            --paper: #fcf6e3;
+            --ink: #2a1a08;
+            --gold: #d4a838;
+            --gold-bright: #ffd76a;
+            --green: #2e8b57;
+            --green-bright: #4ade80;
+            --red: #b91c1c;
+            --purple: #7c3aed;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', 'Iowan Old Style', serif;
+            background:
+                radial-gradient(ellipse at top, #1c2e22 0%, var(--bg-deep) 60%),
+                var(--bg-deep);
+            color: var(--paper);
+            min-height: 100vh;
+            line-height: 1.65;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, rgba(212, 168, 56, 0.15), transparent);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        header h1 {
+            font-size: 3.2rem;
+            margin: 0;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 24px rgba(212, 168, 56, 0.4);
+        }
+
+        header .subtitle {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--paper);
+            opacity: 0.85;
+            margin: 8px 0 18px;
+            letter-spacing: 1px;
+        }
+
+        .lang-switcher {
+            margin: 14px 0;
+            display: inline-flex;
+            gap: 8px;
+            padding: 6px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+        }
+
+        .lang-switcher button {
+            padding: 8px 16px;
+            background: transparent;
+            color: var(--paper);
+            border: 1px solid transparent;
+            border-radius: 22px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.18s;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(212, 168, 56, 0.15);
+        }
+
+        .lang-switcher button.active {
+            background: var(--gold);
+            color: var(--ink);
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--green-bright);
+            text-decoration: none;
+            font-size: 1rem;
+            border: 1px solid var(--green-bright);
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.18s;
+        }
+
+        .back-link:hover {
+            background: rgba(74, 222, 128, 0.15);
+        }
+
+        main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 30px 22px 80px;
+        }
+
+        section {
+            background: rgba(252, 246, 227, 0.97);
+            color: var(--ink);
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            padding: 30px 32px;
+            margin: 26px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        section h2 {
+            color: var(--green);
+            font-size: 1.85rem;
+            margin: 0 0 16px;
+            border-bottom: 2px dashed var(--gold);
+            padding-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        section h3 {
+            color: var(--red);
+            font-size: 1.25rem;
+            margin: 24px 0 8px;
+        }
+
+        section p {
+            margin: 12px 0;
+        }
+
+        section ul,
+        section ol {
+            margin: 10px 0 14px 6px;
+            padding-left: 28px;
+        }
+
+        section li {
+            margin: 5px 0;
+        }
+
+        em {
+            color: var(--purple);
+            font-style: italic;
+        }
+
+        strong {
+            color: var(--ink);
+        }
+
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: rgba(124, 58, 237, 0.12);
+            padding: 2px 7px;
+            border-radius: 4px;
+            color: var(--purple);
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #d0c089;
+            padding: 8px 11px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        .pull {
+            border-left: 4px solid var(--gold);
+            background: rgba(212, 168, 56, 0.10);
+            padding: 12px 18px;
+            margin: 16px 0;
+            font-style: italic;
+            color: #4a3210;
+        }
+
+        .signoff {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--green);
+            margin: 30px 0 8px;
+            letter-spacing: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 36px 16px;
+            color: var(--paper);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gold);
+        }
+
+        [data-lang]:not(.active-lang) {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            section {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🦎 LISKO RACING</h1>
+        <p class="subtitle" data-lang="fi">— Käsikirja —</p>
+        <p class="subtitle" data-lang="en">— The Manual —</p>
+        <p class="subtitle" data-lang="sv">— Handboken —</p>
+
+        <div class="lang-switcher">
+            <button data-set-lang="fi" class="active">🇫🇮 Suomi</button>
+            <button data-set-lang="en">🇬🇧 English</button>
+            <button data-set-lang="sv">🇸🇪 Svenska</button>
+        </div>
+        <br>
+        <a class="back-link" href="index.html" data-lang="fi">← Takaisin peliin</a>
+        <a class="back-link" href="index.html" data-lang="en">← Back to the game</a>
+        <a class="back-link" href="index.html" data-lang="sv">← Tillbaka till spelet</a>
+    </header>
+
+    <main>
+
+        <!-- ============ 1. STORY ============ -->
+        <section>
+            <h2 data-lang="fi">📖 1. Tarina alkaa</h2>
+            <h2 data-lang="en">📖 1. The Story Begins</h2>
+            <h2 data-lang="sv">📖 1. Berättelsen börjar</h2>
+
+            <div data-lang="fi">
+                <p>Tämän pelin alkutarina on tuntuvampi kuin moni ehkä luulisi.
+                    11-vuotias <strong>Matias</strong> kävi vuosia pelinkehityskursseilla parhaan kaverinsa kanssa.</p>
+
+                <p>Matias on tykännyt liskoista, dinosauruksista ja matelijoista aina. Hän on käynyt katsomassa niitä
+                    eläintarhoissa.</p>
+
+                <p>Hän löysi tekoälyn — uuden työkaverin, joka jaksoi kuunnella ideaa idean jälkeen iltakaudet.
+                    Kun Matias keksi: <em>"Tehdään 3D-peli jossa lisko kerää kärpäsiä viidakossa"</em>,
+                    AI vastasi: <em>"Selvä. Ja entäs jos siellä olisi myös tulivuori?"</em></p>
+
+                <p>Tästä syntyi <strong>Lisko Racing</strong> — peli, jossa pieni lisko juoksee maailman halki ja
+                    jonka jokainen yksityiskohta — vihreä sammalkivi, hopeinen ritarihaarniska, läpinäkyvä
+                    lentokoneen kupu — on syntynyt yhdestä lapsen pyynnöstä ja yhdestä tekoälyn vastauksesta,
+                    kymmeniä kertoja peräkkäin. Peli on dokumentti siitä, mitä tapahtuu kun yksi 11-vuotias
+                    päättää, että <strong>kurssin loppuminen ei ole tarinan loppu</strong>.</p>
+
+                <div class="pull">
+                    Pyydä siis vanha pelikaverisi huoneeseen. Pyydä myös isovanhemmat, äiti, isä, naapurit.
+                    Lue heille tarina liskosta joka kerää kärpäsiä — ja anna heille ohjain.
+                </div>
+            </div>
+
+            <div data-lang="en">
+                <p>The story behind this game is more grounded than you might expect.
+                    Eleven-year-old <strong>Matias</strong> spent years on game-development courses with his best
+                    friend.</p>
+
+                <p>Matias has always loved lizards, dinosaurs and reptiles. He has been to see them at zoos.</p>
+
+                <p>He found a new collaborator: AI — a partner who would listen to idea after idea, evening after
+                    evening. When Matias said <em>"Let's make a 3D game where a lizard collects flies in a jungle"</em>,
+                    the AI replied <em>"Sure. And what if there was also a volcano?"</em></p>
+
+                <p>From this came <strong>Lisko Racing</strong> — a game where a small lizard runs across worlds, and
+                    every detail — a green moss patch, a knight's silver armor, a transparent airplane canopy — is the
+                    answer to one child's question and one AI's reply, repeated dozens of times. The game documents
+                    what happens when an 11-year-old decides that <strong>the end of a course is not the end of a
+                        story</strong>.</p>
+
+                <div class="pull">
+                    So gather your old gaming friends, your grandparents, your parents, your neighbors.
+                    Tell them the tale of a lizard chasing flies — and hand them the controls.
+                </div>
+            </div>
+
+            <div data-lang="sv">
+                <p>Berättelsen bakom det här spelet är mer jordnära än man kan tro.
+                    Elvaårige <strong>Matias</strong> gick under flera år på speldesignkurser med sin bästa vän.</p>
+
+                <p>Matias har alltid älskat ödlor, dinosaurier och reptiler. Han har varit och tittat på dem på
+                    djurparker.</p>
+
+                <p>Han hittade en ny medarbetare: AI — en partner som lyssnade på idé efter idé, kväll efter kväll.
+                    När Matias föreslog <em>"Vi gör ett 3D-spel där en ödla samlar flugor i djungeln"</em> svarade
+                    AI:n: <em>"Klart. Och tänk om det också fanns en vulkan?"</em></p>
+
+                <p>Så föddes <strong>Lisko Racing</strong> — ett spel där en liten ödla springer genom världen, och
+                    varje detalj är svaret på ett barns fråga och en AI:s motsvar, dussintals gånger om.
+                    Spelet är ett vittnesbörd om vad som händer när en elvaåring bestämmer sig för att
+                    <strong>en kurs slut inte är berättelsens slut</strong>.</p>
+
+                <div class="pull">
+                    Samla era gamla speldesignvänner, far- och morföräldrar, föräldrar och grannar.
+                    Berätta sagan om ödlan som jagar flugor — och räck dem kontrollen.
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 2. PHILOSOPHY ============ -->
+        <section>
+            <h2 data-lang="fi">🌿 2. Pelifilosofia</h2>
+            <h2 data-lang="en">🌿 2. Game Philosophy</h2>
+            <h2 data-lang="sv">🌿 2. Spelets filosofi</h2>
+
+            <div data-lang="fi">
+                <p>Lisko Racing on yksinkertainen siinä, mistä peli rakentuu. Kuin näkkileipä — vain muutama aines,
+                    mutta tarpeeksi syötäväksi viikkoja peräkkäin. Painat vasenta tai oikeaa, lisko vaihtaa kaistaa,
+                    kerää kärpäsiä. Siinä on koko peli, lyhyesti.</p>
+
+                <p>Mutta yksinkertaisuuden taakse piiloutuu syvempi filosofia: peli kunnioittaa pelaajan aikaa kahdella
+                    tavalla. <strong>Ensinnäkin</strong>: vaikka peli on pieni, jokainen kärpänen lasketaan. Niistä
+                    syntyy pisteitä, ne tallentuvat pilveen, ne kilpailevat maailmanlaajuisessa tulostaulussa, ja
+                    niiden hinnalla voit ostaa uusia liskon ulkomuotoja kaupasta. Mikään ei mene hukkaan.</p>
+
+                <p><strong>Toiseksi</strong>: pelin maailma muuttuu sinun kanssasi. Voit valita viiden kartan välillä —
+                    viidakko, ranta, tulivuori, vuoristo, luolasto — ja lopulta avata pomotaistelun jättikärpästä
+                    vastaan. Voit pelata 30 sekuntia ja nauttia. Voit pelata 30 minuuttia ja edetä syvemmälle.
+                    <em>Peli ei pakota mihinkään.</em></p>
+
+                <p>Ja vihdoin: peli pukee päälle huumorinsa kuin hassun lippiksen. Aave-skin näyttää oikeasti
+                    aaveelta, mehiläinen on aito mehiläinen, mecha-robotti hehkuu syaani-visiirilla. Pelin maailmassa
+                    lisko voi olla samurai tai astronautti, ja se on ihan ok.</p>
+            </div>
+
+            <div data-lang="en">
+                <p>Lisko Racing is simple in what it asks of you. Like crispbread — just a few ingredients, enough
+                    to last for weeks. Press left or right, the lizard switches lanes, collects flies. That's the
+                    whole game in one sentence.</p>
+
+                <p>Beneath the simplicity hides a deeper philosophy: the game respects your time twice over.
+                    <strong>First:</strong> however small the game, every fly counts. They become points, they go
+                    to the cloud, they compete on a global leaderboard, and they buy new lizard skins from the shop.
+                    Nothing is wasted.</p>
+
+                <p><strong>Second:</strong> the world changes with you. Five maps to choose from — jungle, beach,
+                    volcano, mountains, caves — and eventually a boss fight against a giant fly. Play 30 seconds and
+                    enjoy. Play 30 minutes and go deeper. <em>The game does not push.</em></p>
+
+                <p>And finally: the game wears its humor like a silly hat. The Ghost skin actually looks like a ghost,
+                    the Bee is a real bee, the Mecha glows with cyan visors. In this world a lizard can be a samurai or
+                    an astronaut. That's perfectly fine.</p>
+            </div>
+
+            <div data-lang="sv">
+                <p>Lisko Racing är enkelt i vad det kräver av dig. Som knäckebröd — bara några ingredienser, men nog
+                    för att räcka i veckor. Tryck vänster eller höger, ödlan byter fil, samlar flugor. Det är hela
+                    spelet i en mening.</p>
+
+                <p>Under enkelheten ligger en djupare filosofi: spelet respekterar din tid på två sätt.
+                    <strong>För det första:</strong> även om spelet är litet räknas varje fluga. De blir poäng, de
+                    sparas i molnet, de tävlar på en världstoppslista, och de köper nya ödleutseenden i butiken.
+                    Inget går till spillo.</p>
+
+                <p><strong>För det andra:</strong> världen förändras med dig. Fem kartor — djungel, strand, vulkan,
+                    berg, grottor — och så småningom en bossfight mot en jättefluga. Spela i 30 sekunder och njut.
+                    Spela i 30 minuter och gå djupare. <em>Spelet pushar inte.</em></p>
+
+                <p>Slutligen bär spelet sin humor som en löjlig hatt. Spöke-skinet ser faktiskt ut som ett spöke,
+                    biet är ett riktigt bi, mechan glöder med cyanblå visir. I den här världen kan en ödla vara en
+                    samuraj eller astronaut. Det är helt okej.</p>
+            </div>
+        </section>
+
+        <!-- ============ 3. CHARACTERS ============ -->
+        <section>
+            <h2 data-lang="fi">🎭 3. Hahmot — 114 ulkoasua</h2>
+            <h2 data-lang="en">🎭 3. Characters — 114 looks</h2>
+            <h2 data-lang="sv">🎭 3. Karaktärer — 114 utseenden</h2>
+
+            <div data-lang="fi">
+                <p>Liskon perusasu on metsänvihreä klassikko. Sen lisäksi kaupasta löytyy 113 muuta vaihtoehtoa —
+                    yhteensä <strong>114 ulkoasua</strong>. Ulkoasut jakautuvat kolmeen harvinaisuuteen:
+                    <em>yleinen</em>, <em>harvinainen</em>, <em>myyttinen</em>.</p>
+
+                <h3>🟢 Yleiset (38)</h3>
+                <p>Vihreä Lisko (oletus), Kultainen, Violetti, Tuli, Meri, Aavikko, Metsä, Minttu, Laava, Koralli,
+                    Smaragdi, Hiekka, Sammal, Sitruuna, Persikka, Lime, Ruusu, Oliivi, Sinivihreä, Meripihka,
+                    Laventeli, Luumu, Aprikoosi, Helmi, Kirsikka, Kupari, 🥉 Pronssi, 🥈 Hopea, Hiili, ❄️ Kuura,
+                    Sitriini, Jade, Topaasi, Opaali, Jäätikkö, ☄️ Komeetta, 🧚 Keiju, Aurinkokivi.</p>
+
+                <h3>🔵 Harvinaiset (52)</h3>
+                <p>Jää, Auringonlasku, Myrkky, Neon, Yölisko, Karamellikko, Varjolisko, Rubiini, Safiiri,
+                    🐝 Mehiläinen, Varjo, ⚡ Salama, Magma, 👑 Kuninkaallinen, 🍂 Syksy, Metalli, Kyberi, Obsidiaani,
+                    Yösininen, Syvämeri, Neonipinkki, Yövarjo, Jääliekki, 🦓 Seepra, 🐯 Tiikeri, 🐆 Leopardi,
+                    🐶 Dalmatialainen, 🗡️ Samurai, 🥷 Ninja, 🏴‍☠️ Merirosvo, 🧙 Velho, ⚔️ Ritari, 🚀 Astronautti,
+                    🐺 Ihmissusi, 🧟 Zombie, 🧛 Vampyyri, 🧜 Merenneito, ⭐ Platina, Teräs, Onyks, Akvamariini,
+                    Granaatti, Kuukivi, 🌪️ Tornado, ⚡ Ukkonen, 🔥 Inferno, 💫 Pulsari, Henki, 😈 Demoni,
+                    🤠 Karjapaimen, Viikinki, 📿 Muumio.</p>
+
+                <h3>🟣 Myyttiset (24)</h3>
+                <p>Sateenkaari, Timantti, 🐵 Apina, 🐟 Kala, Klassikko, 👻 Aave, 💎 Kristalli, 🌌 Galaksi,
+                    ✨ Kosminen, 🦄 Yksisarvinen, 🐉 Lohikäärme, 🔥 Feeniks, 🐍 Hydra, 🐙 Kraken, 🤖 Mecha,
+                    Hologrammi, Tyhjyys, 🌌 Nebula, 🌠 Revontulet, 🌑 Pimennys, 😇 Enkeli, 🎮 Pikseli, Matriisi,
+                    🪩 Disko.</p>
+
+                <p>Osa skineistä korvaa liskon kokonaan toisella olennolla — apina, kala, mehiläinen, aave, kraken,
+                    hydra, feeniks, lohikäärme, yksisarvinen, merenneito, vampyyri, astronautti, ritari, velho, ninja,
+                    samurai, merirosvo, karjapaimen, dalmatialainen, leopardi, tiikeri, seepra, zombie, ihmissusi,
+                    mecha ja pikseli muuttavat liskon kokonaan uudeksi hahmoksi.</p>
+
+                <p>Halvin maksaa <strong>nolla</strong> kärpästä, kallein <strong>7 500</strong>. Kaupassa on myös
+                    laskuri, joka näyttää <em>X / 114</em> avattuja skinejä. Joillakin on hehkuvat (emissive)
+                    materiaalit — ne näyttävät erityisen vaikuttavilta luolasto-kartalla.</p>
+            </div>
+
+            <div data-lang="en">
+                <p>The default lizard is forest-green classic. Beyond it, 113 other looks await in the shop —
+                    <strong>114 in total</strong>. Skins fall into three rarities: <em>common</em>, <em>rare</em>,
+                    <em>mythic</em>.</p>
+
+                <h3>🟢 Common (38)</h3>
+                <p>Green Lizard (default), Golden, Purple, Fire, Ocean, Desert, Forest, Mint, Lava, Coral, Emerald,
+                    Sand, Moss, Lemon, Peach, Lime, Rose, Olive, Teal, Amber, Lavender, Plum, Apricot, Pearl, Cherry,
+                    Copper, 🥉 Bronze, 🥈 Silver, Charcoal, ❄️ Frost, Citrine, Jade, Topaz, Opal, Glacier,
+                    ☄️ Comet, 🧚 Fairy, Sunstone.</p>
+
+                <h3>🔵 Rare (52)</h3>
+                <p>Ice, Sunset, Toxic, Neon, Midnight, Candy, Stealth, Ruby, Sapphire, 🐝 Bee, Shadow, ⚡ Lightning,
+                    Magma, 👑 Royal, 🍂 Autumn, Metallic, Cyber, Obsidian, Midnight Blue, Deep Sea, Neon Pink,
+                    Nightshade, Icefire, 🦓 Zebra, 🐯 Tiger, 🐆 Leopard, 🐶 Dalmatian, 🗡️ Samurai, 🥷 Ninja,
+                    🏴‍☠️ Pirate, 🧙 Wizard, ⚔️ Knight, 🚀 Astronaut, 🐺 Werewolf, 🧟 Zombie, 🧛 Vampire,
+                    🧜 Mermaid, ⭐ Platinum, Steel, Onyx, Aquamarine, Garnet, Moonstone, 🌪️ Tornado, ⚡ Thunder,
+                    🔥 Inferno, 💫 Pulsar, Wraith, 😈 Demon, 🤠 Cowboy, Viking, 📿 Mummy.</p>
+
+                <h3>🟣 Mythic (24)</h3>
+                <p>Rainbow, Diamond, 🐵 Monkey, 🐟 Fish, Classic, 👻 Ghost, 💎 Crystal, 🌌 Galaxy, ✨ Cosmic,
+                    🦄 Unicorn, 🐉 Dragon, 🔥 Phoenix, 🐍 Hydra (three heads!), 🐙 Kraken, 🤖 Mecha, Holographic,
+                    Void, 🌌 Nebula, 🌠 Aurora, 🌑 Eclipse, 😇 Angel, 🎮 Pixel, Matrix, 🪩 Disco.</p>
+
+                <p>Some skins replace the lizard with a different creature entirely — monkey, fish, bee, ghost, kraken,
+                    hydra, phoenix, dragon, unicorn, mermaid, vampire, astronaut, knight, wizard, ninja, samurai,
+                    pirate, cowboy, dalmatian, leopard, tiger, zebra, zombie, werewolf, mecha and pixel become full new
+                    characters.</p>
+
+                <p>Cheapest costs <strong>zero</strong>, most expensive <strong>7,500</strong> flies. The shop also
+                    shows a counter — <em>X / 114</em> unlocked. Some skins have glowing (emissive) materials and look
+                    spectacular in the cave biome.</p>
+            </div>
+
+            <div data-lang="sv">
+                <p>Standardödlan är klassiskt skogsgrön. I butiken väntar 113 andra varianter — <strong>totalt 114
+                        utseenden</strong>. Utseendena delas in i tre sällsyntheter: <em>vanlig</em>,
+                    <em>sällsynt</em>, <em>mytisk</em>.</p>
+
+                <h3>🟢 Vanliga (38)</h3>
+                <p>Grön Ödla (standard), Guld, Lila, Eld, Hav, Öken, Skog, Mynta, Lava, Korall, Smaragd, Sand, Mossa,
+                    Citron, Persika, Lime, Ros, Oliv, Blågrön, Bärnsten, Lavendel, Plommon, Aprikos, Pärla, Körsbär,
+                    Koppar, 🥉 Brons, 🥈 Silver, Träkol, ❄️ Frost, Citrin, Jade, Topas, Opal, Glaciär, ☄️ Komet,
+                    🧚 Fé, Solsten.</p>
+
+                <h3>🔵 Sällsynta (52)</h3>
+                <p>Is, Solnedgång, Gift, Neon, Midnatt, Godis, Smyg, Rubin, Safir, 🐝 Bi, Skugga, ⚡ Blixt, Magma,
+                    👑 Kunglig, 🍂 Höst, Metall, Cyber, Obsidian, Midnattsblå, Djuphav, Neonrosa, Belladonna, Iseld,
+                    🦓 Zebra, 🐯 Tiger, 🐆 Leopard, 🐶 Dalmatiner, 🗡️ Samuraj, 🥷 Ninja, 🏴‍☠️ Pirat, 🧙 Trollkarl,
+                    ⚔️ Riddare, 🚀 Astronaut, 🐺 Varulv, 🧟 Zombie, 🧛 Vampyr, 🧜 Sjöjungfru, ⭐ Platina, Stål, Onyx,
+                    Akvamarin, Granat, Månsten, 🌪️ Tornado, ⚡ Åska, 🔥 Inferno, 💫 Pulsar, Vålnad, 😈 Demon,
+                    🤠 Cowboy, Viking, 📿 Mumie.</p>
+
+                <h3>🟣 Mytiska (24)</h3>
+                <p>Regnbåge, Diamant, 🐵 Apa, 🐟 Fisk, Klassisk, 👻 Spöke, 💎 Kristall, 🌌 Galax, ✨ Kosmisk,
+                    🦄 Enhörning, 🐉 Drake, 🔥 Fenix, 🐍 Hydra (tre huvuden!), 🐙 Kraken, 🤖 Mecha, Holografisk,
+                    Tomhet, 🌌 Nebulosa, 🌠 Norrsken, 🌑 Förmörkelse, 😇 Ängel, 🎮 Pixel, Matris, 🪩 Disco.</p>
+
+                <p>Vissa skin byter ödlan mot en helt annan varelse — apa, fisk, bi, spöke, kraken, hydra, fenix,
+                    drake, enhörning, sjöjungfru, vampyr, astronaut, riddare, trollkarl, ninja, samuraj, pirat, cowboy,
+                    dalmatiner, leopard, tiger, zebra, zombie, varulv, mecha och pixel blir helt nya figurer.</p>
+
+                <p>Billigast kostar <strong>noll</strong>, dyrast <strong>7 500</strong> flugor. Butiken visar också
+                    räknare — <em>X / 114</em> upplåsta. Vissa skin glöder (emissive) och ser spektakulära ut i
+                    grottbiomet.</p>
+            </div>
+        </section>
+
+        <!-- ============ 4. MAPS ============ -->
+        <section>
+            <h2 data-lang="fi">🗺️ 4. Maailmat — viisi karttaa</h2>
+            <h2 data-lang="en">🗺️ 4. Worlds — five maps</h2>
+            <h2 data-lang="sv">🗺️ 4. Världar — fem kartor</h2>
+
+            <div data-lang="fi">
+                <ul>
+                    <li>🌴 <strong>Viidakko</strong> — alkuperäinen lähtöpiste. Sammalta, palmuja, perhosia ja
+                        papukaijoja. Vihertävä hämärä päivänvalo lehväkaton alla.</li>
+                    <li>🏖️ <strong>Ranta</strong> — keltaista hiekkaa, kookospalmut linjassa, taivas ja meri yhdellä
+                        haalealla sinellä. Kaikkein rauhallisin.</li>
+                    <li>🌋 <strong>Tulivuori</strong> — taivas vihaisen punainen, sumu lämmintä, maa miltei mustaa.
+                        Kuolleita puita ja hehkuvia laavakiviä.</li>
+                    <li>🏔️ <strong>Vuoristo</strong> — lumihuiput valkoisina, taivas vaaleansininen, harmaa kivi.
+                        Mäntyjä ja lumikinoksia. Hiljaisin biome.</li>
+                    <li>🕳️ <strong>Luolasto</strong> — kaikkein synkin. Sumu ulottuu vain 18 yksikön päähän.
+                        Stalagmiitit ylhäältä ja alhaalta. Ainoa valonlähde: hehkuvat fluoresoivat sienet, jotka
+                        loistavat sinisenä.</li>
+                </ul>
+
+                <p>Karttaa vaihdetaan aloitusnäytön napeista. Maailmojen geometria on osin sama (esteet, kaistat,
+                    kärpäset), mutta valaistus, värit, tausta, sivudekoraatiot ja pohjamateriaali muuttuvat täysin.
+                    Pelitunne vaihtuu rauhallisesta rannasta painostavaan luolastoon.</p>
+            </div>
+
+            <div data-lang="en">
+                <ul>
+                    <li>🌴 <strong>Jungle</strong> — moss, palms, butterflies, parrots. Soft green light under canopy.
+                    </li>
+                    <li>🏖️ <strong>Beach</strong> — bright yellow sand, sparse coconut palms, calmest map.</li>
+                    <li>🌋 <strong>Volcano</strong> — angry red sky, dark ground, glowing lava rocks, dead trees.</li>
+                    <li>🏔️ <strong>Mountains</strong> — snow-capped peaks, gray stone, pines, snow mounds.</li>
+                    <li>🕳️ <strong>Caves</strong> — darkest. Fog reaches only 18 units. Stalagmites and stalactites.
+                        Glowing fluorescent mushrooms are the only light. Best biome for emissive skins.</li>
+                </ul>
+
+                <p>Switch between maps from the start screen. Geometry stays similar (obstacles, lanes, flies) but
+                    lighting, colors, sky, side decorations and ground completely change. The atmosphere shifts from
+                    peaceful beach to oppressive cave.</p>
+            </div>
+
+            <div data-lang="sv">
+                <ul>
+                    <li>🌴 <strong>Djungel</strong> — mossa, palmer, fjärilar, papegojor. Mjukt grönt ljus under
+                        bladtaket.</li>
+                    <li>🏖️ <strong>Strand</strong> — gul sand, glesa kokospalmer, lugnaste kartan.</li>
+                    <li>🌋 <strong>Vulkan</strong> — arg röd himmel, mörk mark, glödande lavaklippor, döda träd.</li>
+                    <li>🏔️ <strong>Berg</strong> — snötäckta toppar, grå sten, tallar, snöhögar.</li>
+                    <li>🕳️ <strong>Grottor</strong> — mörkast. Dimman når bara 18 enheter. Stalagmiter och
+                        stalaktiter. Lysande fluorescerande svampar är enda ljuset.</li>
+                </ul>
+
+                <p>Byt karta från startskärmen. Geometrin är likartad men ljus, färg, himmel, sidodekor och mark
+                    förändras helt. Stämningen växlar från fridfull strand till tryckande grotta.</p>
+            </div>
+        </section>
+
+        <!-- ============ 5. BOSS ============ -->
+        <section>
+            <h2 data-lang="fi">🪰 5. Loppuvastus — Jättikärpänen</h2>
+            <h2 data-lang="en">🪰 5. Boss — The Giant Fly</h2>
+            <h2 data-lang="sv">🪰 5. Bossen — Jättefluan</h2>
+
+            <div data-lang="fi">
+                <p>Aluksi se vain leijuu. Iso, suunnaton kärpänen tummine yhdistelmäsilmineen jotka hehkuvat punaisina
+                    kuin lyhdyt. Neljä läpinäkyvää siipeä lyö ilmaa nopeaa rytmiä. Kun se päättää hyökätä, lukee sen
+                    rytmistä: ensin pienenee odotuksen tasaisuus, sitten yhtäkkiä — syöksy.</p>
+
+                <p>Pomotaistelu avataan kaupan <strong>Pelimuodot</strong>-osiossa hintaan
+                    <strong>10 000 kärpästä</strong>. Sen jälkeen aloitusnäytöltä löytyy uusi pulssaava punainen
+                    nappi. Painat sitä, peli pakottaa <em>Vaikea</em>-vaikeustason, ja taivaalla näkyy uusi olento.</p>
+
+                <p><strong>Säännöt:</strong> pomo syöksyy 7 kertaa, joka kerta sattumanvaraiseen kohtaan kartalla.
+                    Sinun tehtäväsi on <em>väistää</em> — vaihtamalla kaistaa joka kerta. Et voi vahingoittaa pomoa
+                    kärpäsiä keräämällä, et voi piiloutua supervoiman taakse: <strong>kilpi, lento, voittamattomuus —
+                        mikään ei pelasta sinua syöksystä</strong>. Lentokone ei säästä, sillä pomo iskee kaikessa
+                    korkeudessa. Ainoa pelastus on lukea linja ja siirtyä pois ennen kuin se laskeutuu.</p>
+
+                <p>Kun pomo on tehnyt seitsemän syöksyä eikä kertaakaan iskenyt sinua, se kuolee uupumukseen. Voitat.
+                    <strong>Palkinto: +300 kärpästä.</strong> Häviät? <strong>-500 kärpästä.</strong></p>
+
+                <div class="pull">Tämä on raaka peli, mutta se on <em>viimeinen</em> pomo.</div>
+            </div>
+
+            <div data-lang="en">
+                <p>At first it just hovers. A vast fly with dark compound eyes that glow red like lanterns. Four
+                    transparent wings beat fast. When it decides to attack, you can read the rhythm: first the wait
+                    grows steady, then suddenly — the dive.</p>
+
+                <p>The boss fight is unlocked in the shop <strong>Game Modes</strong> section for
+                    <strong>10,000 flies</strong>. After that a new pulsing red button appears on the start screen.
+                    Press it, the game forces <em>Hard</em> difficulty, and a new creature fills the sky.</p>
+
+                <p><strong>Rules:</strong> the boss dives 7 times, each at a random spot. Your job: <em>dodge</em> by
+                    switching lanes. You cannot damage the boss by collecting flies. No super power saves you:
+                    <strong>shield, flight, invincibility — none of them protect from the dive</strong>. The airplane
+                    won't help, since the boss strikes at every altitude. Your only escape is reading the trajectory
+                    and stepping aside.</p>
+
+                <p>When the boss has dived seven times without hitting you, it dies of exhaustion. You win.
+                    <strong>Reward: +300 flies.</strong> Lose? <strong>-500 flies.</strong></p>
+
+                <div class="pull">It's a brutal fight, but it's the <em>final</em> boss.</div>
+            </div>
+
+            <div data-lang="sv">
+                <p>Först bara svävar den. En enorm fluga med mörka, sammansatta ögon som glöder röda som lyktor. Fyra
+                    genomskinliga vingar slår snabbt. När den bestämmer sig för att attackera kan man läsa rytmen:
+                    först blir väntan stadig, sedan plötsligt — dyket.</p>
+
+                <p>Bossfighten låses upp i butikens <strong>Spelläge</strong>-sektion för
+                    <strong>10 000 flugor</strong>. Sedan dyker en pulserande röd knapp upp på startskärmen. Tryck på
+                    den, spelet tvingar <em>Hard</em>-svårighet, och en ny varelse syns på himlen.</p>
+
+                <p><strong>Regler:</strong> bossen dyker 7 gånger, varje gång på slumpmässig plats. Din uppgift:
+                    <em>undvik</em> genom att byta fil. Du kan inte skada bossen, ingen superkraft skyddar dig —
+                    <strong>sköld, flyg, odödlighet hjälper inte mot dyket</strong>. Enda räddningen är att läsa banan
+                    och hoppa undan.</p>
+
+                <p>När bossen dykt sju gånger utan att träffa dig dör den av utmattning. Du vinner.
+                    <strong>Belöning: +300 flugor.</strong> Förlorar du? <strong>-500 flugor.</strong></p>
+
+                <div class="pull">En brutal kamp, men det är <em>sista</em> bossen.</div>
+            </div>
+        </section>
+
+        <!-- ============ 6. SUPER POWERS ============ -->
+        <section>
+            <h2 data-lang="fi">⚡ 6. Supervoimat — seitsemän näppäintä</h2>
+            <h2 data-lang="en">⚡ 6. Super Powers — seven keys</h2>
+            <h2 data-lang="sv">⚡ 6. Superkrafter — sju tangenter</h2>
+
+            <div data-lang="fi">
+                <ul>
+                    <li>✈️ <strong>F — Lento (lentokone)</strong> — 15 sekuntia, lisko nousee 13 yksikön korkeuteen,
+                        oikea lentokone ilmestyy alle propellineen. Kärpäset auto-keräytyvät 30 yksikön päästä.
+                        Esteet menevät alta. <em>3 käyttöä per peli.</em></li>
+                    <li>🛡️ <strong>Q — Kilpi</strong> — esteet menevät lävitse. 5 s → 8 s → 12 s tasoittain.</li>
+                    <li>🧲 <strong>E — Magneetti</strong> — kärpäset imeytyvät laajalta alueelta.
+                        8 → 12 → 16 yksikön säde.</li>
+                    <li>🐌 <strong>R — Hidastus</strong> — pelin nopeus laskee. -30 % → -50 % → -70 %.</li>
+                    <li>✖️2 <strong>T — Tuplapisteet</strong> — kerätyt kärpäset tuplaavat pisteensä. 8 s → 12 s → 16 s.</li>
+                    <li>🚀 <strong>G — Turbo</strong> — vauhti kiihtyy ja esteet eivät vahingoita.
+                        1,5× → 1,7× → 2,0× nopeus, 4 s → 6 s → 8 s.</li>
+                    <li>🎺 <strong>V — Houkutus</strong> — kärpäsiä spawnaa enemmän, esteitä vähemmän.
+                        70 % → 80 % → 90 % kärpäsiä, 8 s → 12 s → 16 s.</li>
+                </ul>
+
+                <p>Yhdellä supervoimalla on <strong>15 sekunnin yhteinen jäähdytys</strong> — et voi pinota niitä
+                    spämmäämällä. Sinun on valittava oikea hetki.</p>
+
+                <p>Lento on saatavilla automaattisesti. Muut kuusi avataan kaupasta hintaan
+                    <strong>5 000 kärpästä per taso</strong>. Tasoja kolme jokaisessa.</p>
+            </div>
+
+            <div data-lang="en">
+                <ul>
+                    <li>✈️ <strong>F — Flight (with airplane)</strong> — 15s, lizard rises to altitude 13, a real
+                        airplane appears under it with spinning propeller. Flies auto-collect from 30 units away.
+                        Obstacles pass below. <em>3 uses per game.</em></li>
+                    <li>🛡️ <strong>Q — Shield</strong> — obstacles pass through. 5s → 8s → 12s by tier.</li>
+                    <li>🧲 <strong>E — Magnet</strong> — wide fly pull. 8 → 12 → 16 unit radius.</li>
+                    <li>🐌 <strong>R — Slowmo</strong> — world slows. -30% → -50% → -70%.</li>
+                    <li>✖️2 <strong>T — Double Score</strong> — collected flies count double. 8s → 12s → 16s.</li>
+                    <li>🚀 <strong>G — Turbo</strong> — speed boost + invulnerable.
+                        1.5× → 1.7× → 2.0× speed, 4s → 6s → 8s.</li>
+                    <li>🎺 <strong>V — Lure</strong> — more flies spawn, fewer obstacles.
+                        70% → 80% → 90% flies, 8s → 12s → 16s.</li>
+                </ul>
+
+                <p>All super powers share a <strong>15-second cooldown</strong> — no spamming, no stacking. Pick the
+                    right moment.</p>
+
+                <p>Flight is automatic. The other six unlock from the shop at <strong>5,000 flies per tier</strong>.
+                    Three tiers each.</p>
+            </div>
+
+            <div data-lang="sv">
+                <ul>
+                    <li>✈️ <strong>F — Flyg (med flygplan)</strong> — 15s, ödlan stiger till höjd 13, ett riktigt
+                        flygplan dyker upp under den. Flugor samlas automatiskt från 30 enheter. <em>3 användningar
+                            per spel.</em></li>
+                    <li>🛡️ <strong>Q — Sköld</strong> — hinder går rakt igenom. 5s → 8s → 12s per nivå.</li>
+                    <li>🧲 <strong>E — Magnet</strong> — flugor sugs in från stor radie. 8 → 12 → 16 enheter.</li>
+                    <li>🐌 <strong>R — Slowmo</strong> — världen saktar ner. -30% → -50% → -70%.</li>
+                    <li>✖️2 <strong>T — Dubbla poäng</strong> — insamlade flugor räknas dubbelt. 8s → 12s → 16s.</li>
+                    <li>🚀 <strong>G — Turbo</strong> — fartökning + osårbar.
+                        1,5× → 1,7× → 2,0× fart, 4s → 6s → 8s.</li>
+                    <li>🎺 <strong>V — Lockbete</strong> — fler flugor, färre hinder.
+                        70 % → 80 % → 90 % flugor, 8s → 12s → 16s.</li>
+                </ul>
+
+                <p>Alla superkrafter delar en <strong>15-sekunders cooldown</strong> — ingen spamming. Välj rätt
+                    ögonblick.</p>
+
+                <p>Flyg är automatiskt. De övriga sex låses upp från butiken för <strong>5 000 flugor per nivå</strong>
+                    (tre nivåer var).</p>
+            </div>
+        </section>
+
+        <!-- ============ 7. VIDEO IDEAS (was 8) ============ -->
+        <section>
+            <h2 data-lang="fi">🎬 7. Videoideoita — käsikirjoitusrunkoja</h2>
+            <h2 data-lang="en">🎬 7. Video Ideas — script frames</h2>
+            <h2 data-lang="sv">🎬 7. Videoidéer — manusramar</h2>
+
+            <div data-lang="fi">
+                <p>Pelistä voi tehdä lyhyitä videoita, joiden tavoitteena ei ole opettaa vaan tunnelmoida.
+                    Tässä viisi käsikirjoitusrunkoa, joita voi yhdistellä:</p>
+
+                <h3>Video 1: "Liskon arki" (30 s)</h3>
+                <ol>
+                    <li>0:00 Aloitusnäkymä, viidakko, kirjautuminen</li>
+                    <li>0:05 ALOITA PELI -klikkaus</li>
+                    <li>0:08 Kolme kaistanvaihtoa, kerää kymmenen kärpästä</li>
+                    <li>0:18 Yhtäkkinen törmäys kiveen</li>
+                    <li>0:22 PELI PÄÄTTYI! — pisteet jäävät</li>
+                    <li>0:25 Voiceover: <em>"Toinen päivä, toinen kierros."</em></li>
+                </ol>
+
+                <h3>Video 2: "Skin reveal" (45 s)</h3>
+                <ol>
+                    <li>Kaupan avaus, scrollaa skinejä — 114 vaihtuvaa pikkuruutua</li>
+                    <li>Klikkaa Lohikäärme → equip → palaa peliin → näkyvä punainen lohikäärme juoksee</li>
+                    <li>Sitten Pikseli → 8-bit-versio</li>
+                    <li>Sitten Aave → läpinäkyvä haamu</li>
+                    <li>Voiceover: <em>"Sinä päätät kuka on lisko."</em></li>
+                </ol>
+
+                <h3>Video 3: "Pomotaistelu" (60 s)</h3>
+                <ol>
+                    <li>Käyttäjä ostaa Jättikärpäs-moodin (10 000 kärpästä)</li>
+                    <li>Painaa punaista nappia → pomo lentää näkyviin</li>
+                    <li>Pomo syöksyy → pelaaja väistää</li>
+                    <li>7 syöksyä — viimeisellä taistelu päättyy voitolla</li>
+                    <li>"VOITIT JÄTTIKÄRPÄSEN!" -ilmoitus, +300 kärpäs-palkinto</li>
+                    <li>Voiceover: <em>"Joskus sinä lopulta voitat."</em></li>
+                </ol>
+
+                <h3>Video 4: "Kun lapsi keksii pelin" (90 s)</h3>
+                <ol>
+                    <li>Aloita nuoren Matiaksen otoksella (lähikuva, näppäimistö)</li>
+                    <li>Cut viidakkoon, lisko juoksee</li>
+                    <li>Cut kaupan auki, 114 skiniä vilahtaa</li>
+                    <li>Cut tulivuori-karttaan, taivas punainen</li>
+                    <li>Cut pomotaisteluun</li>
+                    <li>Loppukuva: tarinan teksti — <em>"Pelinkehityskurssit loppuivat. Matias jatkoi yksin."</em></li>
+                    <li>Voiceover: <em>"Kurssit voivat loppua. Tarinat eivät."</em></li>
+                </ol>
+
+                <h3>Video 5: "Salaisuuden hetki" (20 s)</h3>
+                <ol>
+                    <li>Pelaaja istuu pimeässä huoneessa, näppäimistö valaistuna</li>
+                    <li>Lähikuva sormista, jotka kirjoittavat nopeasti — sanat eivät näy ruudulla</li>
+                    <li>Yhtäkkiä ruutuun ilmestyy kullankeltainen +-ilmoitus</li>
+                    <li>Pelaaja hymyilee, ei sano mitään</li>
+                    <li>Voiceover (kuiskaus): <em>"Älä kerro kenellekään."</em></li>
+                </ol>
+
+                <h3>Vinkkejä videoiden tekoon</h3>
+                <ul>
+                    <li>Pelin grafiikka on bright ja graafisesti yksinkertainen → toimii hyvin nopeissa leikeissä.</li>
+                    <li>Liskon hännän liike on smootattu — käytä slow-mo:ta tähän, näyttää kauniilta.</li>
+                    <li>Biome-vaihdokset ovat efektiivisiä cut-kohtia.</li>
+                    <li>Käytä emissive-skinejä luolastossa — ne loistavat oikeasti.</li>
+                    <li>Lentokone-animaatio (F) toimii hyvin ylhäältäpäin kuvattuna.</li>
+                </ul>
+            </div>
+
+            <div data-lang="en">
+                <p>Five short script frames you can mix and match for content videos. The goal isn't to teach but to
+                    set a mood.</p>
+
+                <h3>Video 1: "A lizard's day" (30s)</h3>
+                <ol>
+                    <li>Login, ALOITA PELI</li>
+                    <li>Three lane changes, ten flies collected</li>
+                    <li>Sudden crash into a rock</li>
+                    <li>GAME OVER — score saved</li>
+                    <li>Voiceover: <em>"Another day, another run."</em></li>
+                </ol>
+
+                <h3>Video 2: "Skin reveal" (45s)</h3>
+                <ol>
+                    <li>Open shop, scroll through 114 skins</li>
+                    <li>Equip Dragon → Pixel → Ghost in sequence</li>
+                    <li>Voiceover: <em>"You decide who the lizard is."</em></li>
+                </ol>
+
+                <h3>Video 3: "Boss fight" (60s)</h3>
+                <ol>
+                    <li>Buy boss mode (10,000 flies), press red button</li>
+                    <li>Dodge 7 dives, win on the seventh</li>
+                    <li>"YOU BEAT THE GIANT FLY!" + 300 reward</li>
+                    <li>Voiceover: <em>"Sometimes you win in the end."</em></li>
+                </ol>
+
+                <h3>Video 4: "When a child invents a game" (90s)</h3>
+                <ol>
+                    <li>Open with young Matias on a keyboard close-up</li>
+                    <li>Cut between maps, lizard running</li>
+                    <li>Cut to shop, 114 skins flashing</li>
+                    <li>Cut to volcano (red sky), boss fight</li>
+                    <li>Closing text: <em>"The courses ended. Matias kept going."</em></li>
+                    <li>Voiceover: <em>"Courses end. Stories don't."</em></li>
+                </ol>
+
+                <h3>Video 5: "A secret moment" (20s)</h3>
+                <ol>
+                    <li>Player in a dim room, keyboard lit</li>
+                    <li>Close-up on fingers typing fast — the typed text never visible</li>
+                    <li>Suddenly a golden + popup blooms on screen</li>
+                    <li>Player smiles, says nothing</li>
+                    <li>Voiceover (whisper): <em>"Don't tell anyone."</em></li>
+                </ol>
+
+                <h3>Production tips</h3>
+                <ul>
+                    <li>Graphics are bright and simple — works in fast cuts.</li>
+                    <li>Tail movement is smoothed — use slow-mo, it looks beautiful.</li>
+                    <li>Biome transitions are great cut points.</li>
+                    <li>Use emissive skins in the cave — they actually glow.</li>
+                </ul>
+            </div>
+
+            <div data-lang="sv">
+                <p>Fem korta manusramar att blanda för innehållsvideor. Målet är inte att lära ut utan att skapa
+                    stämning.</p>
+
+                <h3>Video 1: "En ödlas dag" (30s)</h3>
+                <ol>
+                    <li>Inloggning, ALOITA PELI, tre filbyten, krasch, GAME OVER.</li>
+                    <li>Voiceover: <em>"En ny dag, ett nytt varv."</em></li>
+                </ol>
+
+                <h3>Video 2: "Skin-avslöjande" (45s)</h3>
+                <ol>
+                    <li>Bläddra bland 114 skin, byt mellan Drake → Pixel → Spöke.</li>
+                    <li>Voiceover: <em>"Du bestämmer vem ödlan är."</em></li>
+                </ol>
+
+                <h3>Video 3: "Bossfight" (60s)</h3>
+                <ol>
+                    <li>Köp bossläget, undvik 7 dyk, vinn.</li>
+                    <li>Voiceover: <em>"Ibland vinner man till slut."</em></li>
+                </ol>
+
+                <h3>Video 4: "När ett barn skapar ett spel" (90s)</h3>
+                <ol>
+                    <li>Närbild av ung Matias, klipp mellan kartor, slutord:
+                        <em>"Kurserna tog slut. Matias fortsatte ensam."</em>
+                    </li>
+                </ol>
+
+                <h3>Video 5: "Ett hemligt ögonblick" (20s)</h3>
+                <ol>
+                    <li>Spelare i mörkt rum, tangentbord upplyst</li>
+                    <li>Närbild på fingrar som skriver snabbt — texten syns aldrig</li>
+                    <li>Plötsligt blommar en gyllene +-popup på skärmen</li>
+                    <li>Spelaren ler, säger inget</li>
+                    <li>Voiceover (viskning): <em>"Berätta för ingen."</em></li>
+                </ol>
+
+                <h3>Produktionstips</h3>
+                <ul>
+                    <li>Grafiken är ljus och enkel — passar snabba klipp.</li>
+                    <li>Svansrörelsen är mjukad — slow-mo ser vackert ut.</li>
+                    <li>Biombyten är bra klipp-punkter.</li>
+                    <li>Glödande skin lyser i grottan på riktigt.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ 9. BRAND ============ -->
+        <section>
+            <h2 data-lang="fi">✨ 8. Brändi — ainekset</h2>
+            <h2 data-lang="en">✨ 8. Brand — Ingredients</h2>
+            <h2 data-lang="sv">✨ 8. Varumärke — beståndsdelar</h2>
+
+            <div data-lang="fi">
+                <p>Lisko Racing on enemmän kuin peli; se on sytyke pienelle tarinankerrontaperinteelle.
+                    Tässä brändielementit:</p>
+
+                <h3>Hahmo</h3>
+                <p>Vihreä lisko (klassikko), tunnistettavissa hampaista ja silmistä. Voi piirtää viivapiirroksena,
+                    tarroina, t-paitana.</p>
+
+                <h3>Värimaailma</h3>
+                <ul>
+                    <li>Päävihreä <code>#2e8b57</code> (liskon iho)</li>
+                    <li>Toissijainen kelta-vihreä <code>#90ee90</code> (vatsa)</li>
+                    <li>Korostus <code>#ffd700</code> (kärpäs-kullankeltainen)</li>
+                    <li>Tausta-tumma <code>#1a1a40</code> (yötaivas, kosminen)</li>
+                </ul>
+
+                <h3>Symbolit</h3>
+                <p>🦎 Lisko itse · 🪰 Kärpänen (= kolikko) · 🌴 Viidakko (= kotipaikka) · 🪰⚔️ Pomo (= viimeinen
+                    vastus)</p>
+
+                <h3>Slogan-ehdokkaat</h3>
+                <ul>
+                    <li><em>"Lisko Racing — kun kurssi loppuu, juoksu jatkuu."</em></li>
+                    <li><em>"Kärpäset eivät rakennu itsestään."</em></li>
+                    <li><em>"Painat vasenta tai oikeaa. Kaikki muu on filosofia."</em></li>
+                </ul>
+
+                <h3>Numerot</h3>
+                <p>11-vuotias tekijä · 114 hahmoa · 5 maailmaa · 1 pomo · 4 supervoimaa.
+                    Kaikki rakennuskäskyt tallessa repossa.</p>
+
+                <h3>Mahdolliset jatkokehityssuunnat</h3>
+                <ul>
+                    <li>Tarra-arkki, jossa kaikki 20 erikoismuotoa</li>
+                    <li>Lyhyt animaatio-introvideo "Liskon tarina"</li>
+                    <li>Playlist-ehdokkaat: nostalgiset Game Boy -biisit (Pikseli) tai sademetsä-äänet (viidakko)</li>
+                    <li>Käsikirjapainos: tämä dokumentti printattuna, tarkemmin kuvitettuna</li>
+                </ul>
+            </div>
+
+            <div data-lang="en">
+                <p>Lisko Racing is more than a game — it's a small storytelling tradition. Brand elements:</p>
+
+                <h3>Hero</h3>
+                <p>Green lizard (default), recognizable by teeth and eyes. Drawable as line art, sticker, t-shirt.</p>
+
+                <h3>Colors</h3>
+                <ul>
+                    <li>Primary green <code>#2e8b57</code> (lizard skin)</li>
+                    <li>Secondary yellow-green <code>#90ee90</code> (belly)</li>
+                    <li>Accent <code>#ffd700</code> (fly-coin gold)</li>
+                    <li>Dark <code>#1a1a40</code> (cosmic background)</li>
+                </ul>
+
+                <h3>Symbols</h3>
+                <p>🦎 Lizard · 🪰 Fly (= currency) · 🌴 Jungle (= home) · 🪰⚔️ Boss (= final challenge)</p>
+
+                <h3>Slogan candidates</h3>
+                <ul>
+                    <li><em>"Lisko Racing — when the course ends, the run continues."</em></li>
+                    <li><em>"Flies don't farm themselves."</em></li>
+                    <li><em>"Press left or right. The rest is philosophy."</em></li>
+                </ul>
+
+                <h3>Numbers</h3>
+                <p>11-year-old creator · 114 characters · 5 maps · 1 boss · 4 super powers.
+                    Every prompt is preserved in the repo.</p>
+
+                <h3>Future directions</h3>
+                <ul>
+                    <li>Sticker sheet of all 20 special-shape skins</li>
+                    <li>Short animated intro "The Lizard's Tale"</li>
+                    <li>Playlist suggestions: nostalgic Game Boy tracks (Pixel) or rainforest sounds (Jungle)</li>
+                    <li>Print edition of this manual, illustrated</li>
+                </ul>
+            </div>
+
+            <div data-lang="sv">
+                <p>Lisko Racing är mer än ett spel — en liten berättartradition. Varumärkesdelar:</p>
+
+                <h3>Hjälte</h3>
+                <p>Grön ödla (standard), igenkänd av tänder och ögon. Kan ritas som linjekonst, klistermärken, t-shirt.
+                </p>
+
+                <h3>Färger</h3>
+                <ul>
+                    <li>Primär grön <code>#2e8b57</code></li>
+                    <li>Sekundär gul-grön <code>#90ee90</code></li>
+                    <li>Accent <code>#ffd700</code> (fluga-guld)</li>
+                    <li>Mörk <code>#1a1a40</code> (kosmisk bakgrund)</li>
+                </ul>
+
+                <h3>Symboler</h3>
+                <p>🦎 Ödla · 🪰 Fluga (= valuta) · 🌴 Djungel (= hem) · 🪰⚔️ Boss (= sista utmaning)</p>
+
+                <h3>Slogans</h3>
+                <ul>
+                    <li><em>"Lisko Racing — när kursen tar slut fortsätter loppet."</em></li>
+                    <li><em>"Flugor odlar sig inte själva."</em></li>
+                    <li><em>"Tryck vänster eller höger. Resten är filosofi."</em></li>
+                </ul>
+
+                <h3>Siffror</h3>
+                <p>11-årig skapare · 114 karaktärer · 5 kartor · 1 boss · 4 superkrafter.
+                    Varje prompt är sparad i repon.</p>
+
+                <h3>Framtid</h3>
+                <ul>
+                    <li>Klistermärkesark med alla 20 specialformer</li>
+                    <li>Kort animerad intro "Ödlans saga"</li>
+                    <li>Spellistor: Game Boy-låtar (Pixel) eller regnskogsljud (Djungel)</li>
+                    <li>Tryckt utgåva av handboken, illustrerad</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ SIGNOFF ============ -->
+        <section>
+            <div class="signoff">🦎 🦎 🦎</div>
+
+            <div data-lang="fi">
+                <p>Kun kurssit loppuvat, kaverit hajaantuvat, harrastukset väsähtävät — joku jatkaa silti.
+                    Lisko Racing on dokumentti yhdestä jatkamisesta. 11-vuotiaalla on yhä paljon aikaa, ja jokainen
+                    prompti on yksi askel pidemmälle.</p>
+
+                <p>Pelaa tästä toimintaohjeen kanssa tai ilman, mutta tiedä että jokainen ennätys, jokainen biome ja
+                    jokainen pikseli on syntynyt yhdestä lapsen idea-illasta jossa on sanottu ääneen:
+                    <em>"Tehdään 3D-peli jossa lisko juoksee."</em></p>
+
+                <p>Ja tekoäly vastasi: <em>"Selvä. Ja entäs jos siellä olisi myös tulivuori?"</em></p>
+            </div>
+
+            <div data-lang="en">
+                <p>When courses end, friends scatter, hobbies fade — someone keeps going. Lisko Racing documents one
+                    such persistence. An 11-year-old still has plenty of time, and every prompt is one step further.
+                </p>
+
+                <p>Play with this manual or without, but know this: every record, every biome, every pixel was born
+                    from one child's evening when they said out loud: <em>"Let's make a 3D game where a lizard
+                        runs."</em></p>
+
+                <p>And the AI replied: <em>"Sure. And what if there was also a volcano?"</em></p>
+            </div>
+
+            <div data-lang="sv">
+                <p>När kurser tar slut skingras vännerna och hobbyer falnar — någon fortsätter ändå. Lisko Racing är
+                    ett vittnesbörd om en sådan fortsättning. En elvaåring har gott om tid, och varje prompt är ett
+                    steg till.</p>
+
+                <p>Spela med eller utan handboken, men vet detta: varje rekord, varje biom, varje pixel föddes ur
+                    ett barns kväll när de sa högt: <em>"Vi gör ett 3D-spel där en ödla springer."</em></p>
+
+                <p>Och AI:n svarade: <em>"Klart. Och tänk om det också fanns en vulkan?"</em></p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span data-lang="fi">© Matias 2026 · Lisko Racing v2 · Tämä dokumentti elää koodin mukana.</span>
+        <span data-lang="en">© Matias 2026 · Lisko Racing v2 · This document lives with the code.</span>
+        <span data-lang="sv">© Matias 2026 · Lisko Racing v2 · Detta dokument lever med koden.</span>
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll('[data-set-lang]');
+        function setLang(lang) {
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                if (el.dataset.lang === lang) el.classList.add('active-lang');
+                else el.classList.remove('active-lang');
+            });
+            buttons.forEach(b => b.classList.toggle('active', b.dataset.setLang === lang));
+            try { localStorage.setItem('manualLang', lang); } catch (e) { }
+            document.documentElement.lang = lang;
+        }
+        buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+        let initial = 'fi';
+        try { initial = localStorage.getItem('manualLang') || 'fi'; } catch (e) { }
+        setLang(initial);
+    </script>
+</body>
+
+</html>

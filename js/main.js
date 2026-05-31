@@ -240,15 +240,17 @@
       const recBadge = isRec
         ? `<span class="modal__opt-badge">★ ${esc(L().ui.recommended)}</span>` : "";
       if (url) {
-        const isFile = !/^https?:/i.test(url) && url !== "#";
+        // "web" = pelaa selaimessa → avaa peli uuteen välilehteen (ei lataa).
+        const isPlay = key === "web";
+        const isFile = !isPlay && !/^https?:/i.test(url) && url !== "#";
         const a = el("a", "modal__opt" + (isRec ? " modal__opt--recommended" : ""));
         a.href = url;
         if (isFile) {
           a.setAttribute("download", "");           // lataa suoraan
         } else if (url !== "#") {
-          a.target = "_blank"; a.rel = "noopener";   // ulkoinen kauppalinkki
+          a.target = "_blank"; a.rel = "noopener";   // selainpeli tai ulkoinen kauppalinkki
         }
-        const cue = isFile ? "⬇️" : "→";
+        const cue = isFile ? "⬇️" : (isPlay ? "▶" : "→");
         a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}${recBadge}</span><span class="modal__opt-arrow">${cue}</span>`;
         a.addEventListener("click", () => {
           // game = mikä peli, platform = valittu latausnappi (PC/Android/iPhone),
