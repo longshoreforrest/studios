@@ -267,8 +267,15 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
   border: 1px solid var(--border);
 }
 .advisor-card__role { color: var(--accent); font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; margin: 0; }
-.advisor-card__name { font-size: 1.15rem; font-weight: 800; margin: 2px 0 4px; }
+.advisor-card__name { font-size: 1.15rem; font-weight: 800; margin: 2px 0 6px; }
+.advisor-card__bio { color: var(--muted); font-size: .92rem; margin: 0 0 8px; max-width: 640px; }
+.advisor-card__note {
+  font-size: .85rem; font-weight: 700; color: var(--text); max-width: 640px;
+  background: var(--accent-soft); border-left: 3px solid var(--accent);
+  padding: 7px 11px; border-radius: 8px; margin: 0 0 10px;
+}
 .advisor-card__cv { font-weight: 700; font-size: .92rem; }
+@media (max-width: 560px) { .advisor-card { flex-direction: column; align-items: flex-start; } }
 
 /* ---------- About ---------- */
 .about__inner { max-width: 760px; margin: 0 auto; text-align: center; }

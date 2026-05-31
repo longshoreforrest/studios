@@ -361,6 +361,8 @@
           <div class="advisor-card__body">
             <p class="advisor-card__role">${esc(L().ui.advisor)}</p>
             <h4 class="advisor-card__name">${esc(ADVISOR.name)}</h4>
+            <p class="advisor-card__bio">${esc(L().ui.advisorBio)}</p>
+            <p class="advisor-card__note">${esc(L().ui.advisorNote)}</p>
             <a class="advisor-card__cv" href="${esc(ADVISOR.cv)}" target="_blank" rel="noopener">${esc(L().ui.viewCv)}</a>
           </div>
         </div>`;

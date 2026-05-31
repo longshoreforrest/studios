@@ -68,7 +68,17 @@ const I18N = {
       deviceHint: "Tunnistimme laitteeksesi:",
       ageSuffix: "v.",
       langLabel: "Vaihda kieli",
-      advisor: "Neuvonantaja",
+      advisor: "Neuvonantaja · Isälisko 🦎",
+      advisorBio:
+        "Muinainen Isälisko, studion oraakkeli. Hän on nähnyt sukupolvien " +
+        "suomujen tulevan ja menevän, lukenut viisautensa tähdistä ja " +
+        "kahvinporoista, ja nyökkää syvämietteisesti aina kun joku lausuu " +
+        "sanan ’pelimoottori’. Hän hörppii teetä ja viittoo kädellään: " +
+        "”jatka vain, nuori lisko”.",
+      advisorNote:
+        "Huom: Isälisko ei ole koodannut yhtäkään peliä — kaikki pelit ovat " +
+        "Hacker_Liskon käsialaa. Oraakkeli vain neuvoo ja ennustaa niille " +
+        "suurta kohtaloa.",
       viewCv: "Katso CV →",
     },
     studio: {
@@ -160,7 +170,17 @@ const I18N = {
       deviceHint: "We detected your device:",
       ageSuffix: "yrs",
       langLabel: "Change language",
-      advisor: "Advisor",
+      advisor: "Advisor · Father-Lizard 🦎",
+      advisorBio:
+        "The ancient Father-Lizard, the studio's oracle. He has watched " +
+        "generations of scales come and go, read his wisdom in the stars and " +
+        "the coffee grounds, and nods sagely whenever someone utters the " +
+        "words ‘game engine’. He sips his tea and waves a claw: " +
+        "“carry on, young lizard”.",
+      advisorNote:
+        "Note: Father-Lizard has not coded a single game — every game is " +
+        "Hacker_Lisko's doing. The oracle merely advises and foretells their " +
+        "great destiny.",
       viewCv: "View CV →",
     },
     studio: {
@@ -252,7 +272,15 @@ const I18N = {
       deviceHint: "Vi kände igen din enhet:",
       ageSuffix: "år",
       langLabel: "Byt språk",
-      advisor: "Rådgivare",
+      advisor: "Rådgivare · Pappaödlan 🦎",
+      advisorBio:
+        "Den uråldriga Pappaödlan, studions orakel. Han har sett generationer " +
+        "av fjäll komma och gå, läst sin visdom i stjärnorna och kaffesumpen, " +
+        "och nickar visligt varje gång någon yttrar ordet ’spelmotor’. Han " +
+        "smuttar på sitt te och viftar med en klo: ”fortsätt bara, unga ödla”.",
+      advisorNote:
+        "Obs: Pappaödlan har inte kodat ett enda spel — alla spel är " +
+        "Hacker_Liskos verk. Oraklet bara ger råd och spår dem ett stort öde.",
       viewCv: "Se CV →",
     },
     studio: {
