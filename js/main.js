@@ -344,7 +344,7 @@
     const role = tr.role.replace("{age}", d.age);
     const card = $("#devCard");
     card.innerHTML = `
-      <div class="dev-card__avatar">${d.emoji}</div>
+      <div class="dev-card__avatar">${d.avatar ? `<img src="${esc(d.avatar)}" alt="${esc(d.handle)}" />` : d.emoji}</div>
       <div>
         <h3 class="dev-card__handle">${esc(d.handle)}</h3>
         <p class="dev-card__role">${esc(role)}</p>
@@ -352,6 +352,19 @@
         <ul class="dev-card__facts">${facts}</ul>
       </div>`;
     card.classList.add("reveal");
+
+    const adv = $("#advisorCard");
+    if (adv) {
+      adv.innerHTML = `
+        <div class="advisor-card reveal">
+          <span class="advisor-card__icon">${ADVISOR.emoji}</span>
+          <div class="advisor-card__body">
+            <p class="advisor-card__role">${esc(L().ui.advisor)}</p>
+            <h4 class="advisor-card__name">${esc(ADVISOR.name)}</h4>
+            <a class="advisor-card__cv" href="${esc(ADVISOR.cv)}" target="_blank" rel="noopener">${esc(L().ui.viewCv)}</a>
+          </div>
+        </div>`;
+    }
   }
 
   /* ---------- Reveal-animaatio ---------- */
@@ -393,6 +406,8 @@
     document.addEventListener("click", (e) => {
       const btn = e.target.closest && e.target.closest(".btn--download");
       if (btn) { openDownloadModal(btn.dataset.game); return; }
+      const cv = e.target.closest && e.target.closest(".advisor-card__cv");
+      if (cv) { track("cv_click", { source: "advisor" }); return; }
       if (e.target.closest && e.target.closest("[data-close]")) closeDownloadModal();
     });
     document.addEventListener("keydown", (e) => {

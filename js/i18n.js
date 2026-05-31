@@ -68,6 +68,8 @@ const I18N = {
       deviceHint: "Tunnistimme laitteeksesi:",
       ageSuffix: "v.",
       langLabel: "Vaihda kieli",
+      advisor: "Neuvonantaja",
+      viewCv: "Katso CV →",
     },
     studio: {
       tagline: "",
@@ -158,6 +160,8 @@ const I18N = {
       deviceHint: "We detected your device:",
       ageSuffix: "yrs",
       langLabel: "Change language",
+      advisor: "Advisor",
+      viewCv: "View CV →",
     },
     studio: {
       tagline: "",
@@ -248,6 +252,8 @@ const I18N = {
       deviceHint: "Vi kände igen din enhet:",
       ageSuffix: "år",
       langLabel: "Byt språk",
+      advisor: "Rådgivare",
+      viewCv: "Se CV →",
     },
     studio: {
       tagline: "",

@@ -39,12 +39,21 @@ const DEVELOPER = {
   handle: "Hacker_Lisko",
   age: 11,
   emoji: "🦎",
+  avatar: "assets/covers/lisko-racing.jpg", // profiilikuva = Lisko Racing -maskotti
   links: {
     // Täytä todelliset profiilit kun ne ovat olemassa.
     github: null,
     youtube: null,
     itch: null,
   },
+};
+
+const ADVISOR = {
+  name: "Forrest Longshore / Tapio Pitkäranta",
+  emoji: "🧭",
+  // UTM-parametrit: CV:n analytiikka (MyPublicAnalytics, site 'cv') tunnistaa
+  // näistä että kävijä tuli Studios-sivulta. Beacon lukee utm_source/medium/campaign.
+  cv: "https://longshoreforrest.github.io/cv/?utm_source=studios&utm_medium=referral&utm_campaign=advisor",
 };
 
 const GAMES = [
