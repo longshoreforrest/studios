@@ -75,7 +75,7 @@ const GAMES = [
     cover: "assets/covers/kalastus.jpg",
     featured: true,
     public: true,
-    links: { windows: "downloads/kalastus.zip", android: "downloads/kalastus.zip", ios: "downloads/kalastus.zip" },
+    links: { windows: null, android: null, ios: null }, // ei vielä ladattavissa
   },
   {
     id: "bettercraft",
@@ -87,7 +87,7 @@ const GAMES = [
     cover: "assets/covers/futurecraft.jpg",
     featured: true,
     public: true,
-    links: { windows: "downloads/bettercraft.zip", android: null, ios: null },
+    links: { windows: null, android: null, ios: null }, // ei vielä ladattavissa
   },
 ];
 

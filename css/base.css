@@ -182,6 +182,8 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
 
 .card__platforms { margin-top: 6px; }
 .btn--download { width: 100%; justify-content: center; }
+.btn--soon { width: 100%; justify-content: center; opacity: .6; cursor: not-allowed; }
+.btn--soon:hover { transform: none; border-color: var(--border); }
 
 /* ---------- "Lataa appi" -modaali ---------- */
 .modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; }

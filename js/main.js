@@ -200,6 +200,13 @@
   }
 
   function downloadBtnHTML(g) {
+    const hasDownload = PICKER_PLATFORMS.some((k) => g.links[k]);
+    if (!hasDownload) {
+      // Ei vielä ladattavissa → "Tulossa" -nappi (ei avaa modaalia).
+      return `<button class="btn btn--ghost btn--soon" type="button" disabled>
+                <span>⏳</span> ${esc(L().ui.comingSoon)}
+              </button>`;
+    }
     return `<button class="btn btn--primary btn--download" type="button" data-game="${esc(g.id)}">
               <span>⬇️</span> ${esc(L().ui.downloadApp)}
             </button>`;
@@ -298,12 +305,6 @@
   let currentFilter = "all";
 
   function renderGames() {
-    const featuredHost = $("#featuredGrid");
-    featuredHost.innerHTML = "";
-    VISIBLE_GAMES.filter((g) => g.featured).forEach((g) => {
-      featuredHost.insertAdjacentHTML("beforeend", cardHTML(g, true));
-    });
-
     const grid = $("#gamesGrid");
     function paint(filter) {
       currentFilter = filter;
