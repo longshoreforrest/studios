@@ -33,6 +33,10 @@ const TRANSLATIONS = {
         changeName: '📝 Vaihda nimimerkki',
         nameChanged: 'Nimimerkki vaihdettu:',
         nameUnchanged: 'Nimi on jo sama!',
+        nicknameTitle: '🦎 Valitse nimimerkki',
+        nicknameTaken: 'Nimimerkki on jo varattu toiselle pelaajalle.',
+        nicknameConfirm: 'Vahvista',
+        nicknameCancel: 'Peruuta',
         difficultyTitle: 'Valitse vaikeustaso:',
         easy: 'Helppo 🟢',
         normal: 'Normaali 🟡',
@@ -152,6 +156,10 @@ const TRANSLATIONS = {
         changeName: '📝 Byt smeknamn',
         nameChanged: 'Smeknamn ändrat:',
         nameUnchanged: 'Samma namn redan!',
+        nicknameTitle: '🦎 Välj smeknamn',
+        nicknameTaken: 'Smeknamnet är redan taget av en annan spelare.',
+        nicknameConfirm: 'Bekräfta',
+        nicknameCancel: 'Avbryt',
         difficultyTitle: 'Välj svårighetsgrad:',
         easy: 'Lätt 🟢',
         normal: 'Normal 🟡',
@@ -249,6 +257,10 @@ const TRANSLATIONS = {
         changeName: '📝 Change name',
         nameChanged: 'Name changed:',
         nameUnchanged: 'Same name already!',
+        nicknameTitle: '🦎 Choose a nickname',
+        nicknameTaken: 'That nickname is already taken by another player.',
+        nicknameConfirm: 'Confirm',
+        nicknameCancel: 'Cancel',
         difficultyTitle: 'Select difficulty:',
         easy: 'Easy 🟢',
         normal: 'Normal 🟡',
@@ -9985,8 +9997,96 @@ async function signInWithGoogleNative() {
     }
 }
 
-// Ask a new Google user for a unique in-game nickname. Returns null if cancelled.
-async function promptForNickname(suggested) {
+// True when an existing /users record belongs to the user doing the prompting.
+// Lets a player re-claim / rename to a name they ALREADY reserved without the
+// uniqueness check reporting "nimimerkki on jo varattu" against their own record.
+function nicknameOwnedBySelf(existing, userId, opts) {
+    if (!existing) return false;
+    if (opts && opts.ownSub && existing.googleSub && existing.googleSub === opts.ownSub) return true;
+    if (opts && opts.ownId && userId === opts.ownId) return true;
+    return false;
+}
+
+// Ask the player for a unique in-game nickname using the styled modal.
+// Returns a Promise<string|null> (null = cancelled). opts.ownSub / opts.ownId
+// identify the current user so their own reserved name is not flagged as taken.
+function promptForNickname(suggested, opts = {}) {
+    const modal = document.getElementById('nickname-modal');
+    const input = document.getElementById('nickname-input');
+    const errorEl = document.getElementById('nickname-error');
+    const confirmBtn = document.getElementById('nickname-confirm');
+    const cancelBtn = document.getElementById('nickname-cancel');
+    const titleEl = document.getElementById('nickname-title');
+
+    // Fallback to the old window.prompt path if the modal markup is missing
+    // (e.g. an older cached index.html without the new element).
+    if (!modal || !input || !confirmBtn || !cancelBtn) {
+        return promptForNicknameFallback(suggested, opts);
+    }
+
+    return new Promise((resolve) => {
+        if (titleEl) titleEl.textContent = t('nicknameTitle');
+        confirmBtn.textContent = t('nicknameConfirm');
+        cancelBtn.textContent = t('nicknameCancel');
+        input.placeholder = t('chooseNickname');
+        input.value = (suggested || '').replace(/[^a-zA-Z0-9äöåÄÖÅ_]/g, '').slice(0, 15);
+        errorEl.textContent = '';
+
+        let busy = false;
+
+        function cleanup() {
+            modal.classList.remove('visible');
+            modal.setAttribute('aria-hidden', 'true');
+            confirmBtn.removeEventListener('click', onConfirm);
+            cancelBtn.removeEventListener('click', onCancel);
+            input.removeEventListener('keydown', onKey);
+        }
+        function finish(value) { cleanup(); resolve(value); }
+
+        async function onConfirm() {
+            if (busy) return;
+            const name = input.value.trim();
+            if (name.length < 3 || name.length > 15) {
+                errorEl.textContent = t('nicknameLength');
+                return;
+            }
+            busy = true;
+            confirmBtn.disabled = true;
+            errorEl.textContent = '';
+            const userId = getPlayerId(name);
+            try {
+                const res = await fetch(`${FIREBASE_DB_URL}/users/${userId}.json`);
+                const existing = await res.json();
+                if (existing && !nicknameOwnedBySelf(existing, userId, opts)) {
+                    busy = false;
+                    confirmBtn.disabled = false;
+                    errorEl.textContent = t('nicknameTaken');
+                    return;
+                }
+            } catch (e) {
+                // Network problem: allow the name through, the PUT below still runs.
+            }
+            finish(name);
+        }
+        function onCancel() { finish(null); }
+        function onKey(e) {
+            if (e.key === 'Enter') { e.preventDefault(); onConfirm(); }
+            else if (e.key === 'Escape') { e.preventDefault(); onCancel(); }
+        }
+
+        confirmBtn.disabled = false;
+        confirmBtn.addEventListener('click', onConfirm);
+        cancelBtn.addEventListener('click', onCancel);
+        input.addEventListener('keydown', onKey);
+
+        modal.classList.add('visible');
+        modal.setAttribute('aria-hidden', 'false');
+        setTimeout(() => { try { input.focus(); input.select(); } catch (e) {} }, 30);
+    });
+}
+
+// Legacy fallback (only if the modal markup is absent). Same ownership-aware check.
+async function promptForNicknameFallback(suggested, opts = {}) {
     let suggestion = (suggested || '').replace(/[^a-zA-Z0-9äöåÄÖÅ_]/g, '').slice(0, 15);
     if (suggestion.length < 3) suggestion = '';
     for (let i = 0; i < 5; i++) {
@@ -10001,8 +10101,8 @@ async function promptForNickname(suggested) {
         try {
             const res = await fetch(`${FIREBASE_DB_URL}/users/${userId}.json`);
             const existing = await res.json();
-            if (existing) {
-                alert(t('registerError'));
+            if (existing && !nicknameOwnedBySelf(existing, userId, opts)) {
+                alert(t('nicknameTaken'));
                 suggestion = '';
                 continue;
             }
@@ -10050,7 +10150,9 @@ async function loginWithGoogleIdentity({ sub, email, name }) {
             nickname = mapping.nickname;
         } else {
             // First time with this Google account — pick an in-game nickname.
-            nickname = await promptForNickname(googleName);
+            // Pass ownSub so that if a previous attempt already created the user
+            // record (but the mapping write failed), the player can re-claim it.
+            nickname = await promptForNickname(googleName, { ownSub: sub });
             if (!nickname) {
                 showCheatNotification(t('loginError'));
                 return;
@@ -10145,7 +10247,11 @@ function logoutUser() {
 async function changeNickname() {
     if (!currentPlayerName) return;
     const oldName = currentPlayerName;
-    const newName = await promptForNickname(oldName);
+    // ownId/ownSub: the player's CURRENT name is their own — re-typing it must not
+    // be flagged as "varattu". If they keep the same name we report nameUnchanged below.
+    let sessionSub = '';
+    try { sessionSub = (JSON.parse(localStorage.getItem(AUTH_KEY) || '{}') || {}).googleSub || ''; } catch (e) { }
+    const newName = await promptForNickname(oldName, { ownId: getPlayerId(oldName), ownSub: sessionSub });
     if (!newName) return; // cancelled
     if (getPlayerId(newName) === getPlayerId(oldName)) {
         showCheatNotification(t('nameUnchanged'));

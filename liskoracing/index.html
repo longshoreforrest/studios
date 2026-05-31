@@ -189,6 +189,22 @@
         </div>
     </div>
 
+    <!-- Nimimerkin valinta -modaali. Korvaa rumat window.prompt/alert-ruudut.
+         promptForNickname() (game.js) ohjaa tätä ja palauttaa Promise<string|null>. -->
+    <div id="nickname-modal" class="nickname-modal" aria-hidden="true">
+        <div class="nickname-content">
+            <div class="nickname-emoji">🦎</div>
+            <h2 id="nickname-title">Valitse nimimerkki</h2>
+            <input type="text" id="nickname-input" maxlength="15" autocomplete="off"
+                   autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Nimimerkki">
+            <p id="nickname-error" class="nickname-error"></p>
+            <div class="nickname-buttons">
+                <button type="button" id="nickname-confirm" class="nickname-confirm">Vahvista</button>
+                <button type="button" id="nickname-cancel" class="nickname-cancel">Peruuta</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="game.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
