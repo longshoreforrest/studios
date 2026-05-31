@@ -192,6 +192,12 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
 .modal__opt-icon { font-size: 1.5rem; flex: none; }
 .modal__opt-name { flex: 1; }
 .modal__opt-arrow { color: var(--accent); font-weight: 900; }
+.modal__opt--recommended { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent); }
+.modal__opt-name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.modal__opt-badge {
+  font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+}
 .modal__opt--soon { opacity: .5; cursor: default; }
 .modal__opt--soon:hover { border-color: var(--border); transform: none; }
 .modal__opt-soon { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }

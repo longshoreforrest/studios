@@ -31,6 +31,21 @@
     if (window.mypa && typeof window.mypa.send === "function") window.mypa.send(event, extra);
   };
 
+  // Tunnista käyttäjän laite -> alusta-avain (PICKER_PLATFORMS:n mukaisesti).
+  // android | ios | windows(=PC/työpöytä, oletus).
+  function detectDevice() {
+    const nav = window.navigator || {};
+    const ua = (nav.userAgent || "") + " " + (nav.platform || "");
+    const uaDataPlat = (nav.userAgentData && nav.userAgentData.platform) || "";
+    const s = (ua + " " + uaDataPlat).toLowerCase();
+    if (/android/.test(s)) return "android";
+    // iPhone/iPod/iPad — myös iPadOS joka esiintyy "MacIntel" + kosketus.
+    if (/iphone|ipad|ipod/.test(s)) return "ios";
+    if (/mac/.test(s) && (nav.maxTouchPoints || 0) > 1) return "ios";
+    return "windows"; // PC / työpöytä (Windows, Mac, Linux)
+  }
+  const USER_DEVICE = detectDevice();
+
   /* ---------- Kieli ---------- */
   const LANG_KEY = "ls-lang";
   let currentLang = (() => {
@@ -157,17 +172,28 @@
     if (!g) return;
     const modal = $("#downloadModal");
     $("#modalTitle").textContent = `${L().ui.downloadApp} · ${g.title}`;
-    $("#modalSub").textContent = L().ui.choosePlatform;
+    // Suosittele käyttäjän laitteen alustaa (vain jos sille on oikea lataus).
+    const recommended = g.links[USER_DEVICE] ? USER_DEVICE : null;
+    const order = recommended
+      ? [recommended, ...PICKER_PLATFORMS.filter((k) => k !== recommended)]
+      : PICKER_PLATFORMS.slice();
+
+    $("#modalSub").textContent = recommended
+      ? `${L().ui.deviceHint} ${L().platforms[recommended]}`
+      : L().ui.choosePlatform;
 
     const opts = $("#modalOptions");
     opts.innerHTML = "";
-    PICKER_PLATFORMS.forEach((key) => {
+    order.forEach((key) => {
       const url = g.links[key];
       const label = L().platforms[key];
       const icon = PLATFORM_ICON[key];
+      const isRec = key === recommended;
+      const recBadge = isRec
+        ? `<span class="modal__opt-badge">★ ${esc(L().ui.recommended)}</span>` : "";
       if (url) {
         const isFile = !/^https?:/i.test(url) && url !== "#";
-        const a = el("a", "modal__opt");
+        const a = el("a", "modal__opt" + (isRec ? " modal__opt--recommended" : ""));
         a.href = url;
         if (isFile) {
           a.setAttribute("download", "");           // lataa suoraan
@@ -175,9 +201,9 @@
           a.target = "_blank"; a.rel = "noopener";   // ulkoinen kauppalinkki
         }
         const cue = isFile ? "⬇️" : "→";
-        a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}</span><span class="modal__opt-arrow">${cue}</span>`;
+        a.innerHTML = `<span class="modal__opt-icon">${icon}</span><span class="modal__opt-name">${esc(label)}${recBadge}</span><span class="modal__opt-arrow">${cue}</span>`;
         a.addEventListener("click", () => {
-          track("download_click", { game: g.title, platform: key });
+          track("download_click", { game: g.title, platform: key, recommended: isRec });
           closeDownloadModal();
         });
         opts.appendChild(a);
