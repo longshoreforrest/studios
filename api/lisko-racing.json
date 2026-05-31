@@ -1,0 +1,9 @@
+{
+  "_comment": "Kill switch for Lisko Racing Android app. Read by game.js on startup (KILL_SWITCH_URL). When the Firebase backend is retired, flip deprecated=true and push. Documentation: games/Lisko_Racing_v2/RetireFirebase.MD.",
+  "minVersion": "1.0.0",
+  "latestVersion": "1.0.4",
+  "deprecated": false,
+  "updateUrl": "https://longshoreforrest.github.io/studios/",
+  "messageFi": "Tämä Lisko Racing -versio ei enää toimi. Lataa uusin versio sivuiltamme.",
+  "messageEn": "This Lisko Racing version no longer works. Please download the latest version from our website."
+}
