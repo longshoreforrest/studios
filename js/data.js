@@ -84,7 +84,7 @@ const GAMES = [
     stage: "alpha",
     tech: "HTML5 Canvas · Web Audio · Firebase",
     accent: ["#0ea5e9", "#14b8a6"],
-    cover: null,
+    cover: "assets/covers/kalastus.jpg",
     featured: false,
     public: true,
     links: { windows: "downloads/kalastus.zip", android: "downloads/kalastus.zip", ios: "downloads/kalastus.zip" },
