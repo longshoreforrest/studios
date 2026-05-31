@@ -13,7 +13,8 @@
  *   id        – yksilöivä avain (kebab-case). Sama avain i18n.js:n games-osiossa.
  *   title     – näyttönimi (sama kaikilla kielillä, erisnimi)
  *   emoji     – maskotti/ikoni-emoji (fallback-kansikuva)
- *   status    – "released" | "in-development" | "prototype"
+ *   stage     – julkaisuvaihe: "ga" | "beta" | "alpha" | "secret"
+ *               (hauska luokittelu; teksti i18n.js:n stages-osiossa)
  *   tech      – käytetty teknologia (kieliriippumaton, näytetään kortissa)
  *   accent    – kansikuvan gradientin värit [from, to]
  *   cover     – polku oikeaan kansikuvaan, tai null (=generoidaan emojista)
@@ -51,7 +52,7 @@ const GAMES = [
     id: "lisko-racing",
     title: "Lisko Racing",
     emoji: "🦎",
-    status: "released",
+    stage: "ga",
     tech: "HTML5 Canvas · Capacitor · Firebase",
     accent: ["#22c55e", "#0ea5e9"],
     cover: "assets/covers/lisko.png",
@@ -68,7 +69,7 @@ const GAMES = [
     id: "bettercraft",
     title: "BetterCraft",
     emoji: "⛏️",
-    status: "released",
+    stage: "beta",
     tech: "Three.js · Electron · Firebase",
     accent: ["#65a30d", "#155e75"],
     cover: null,
@@ -80,7 +81,7 @@ const GAMES = [
     id: "kalastus",
     title: "Kalastus",
     emoji: "🎣",
-    status: "released",
+    stage: "alpha",
     tech: "HTML5 Canvas · Web Audio · Firebase",
     accent: ["#0ea5e9", "#14b8a6"],
     cover: null,
@@ -103,11 +104,14 @@ const THEMES = [
   { key: "hacker", label: "Hacker", emoji: "💻" },
 ];
 
-/* Tilan CSS-luokka (teksti tulee i18n.js:stä, ks. status). */
-const STATUS_CLASS = {
-  released: "status--released",
-  "in-development": "status--dev",
-  prototype: "status--proto",
+/* Julkaisuvaiheen CSS-luokka (teksti tulee i18n.js:stä, ks. stages).
+   ga = kaikille auki, beta = avoin testi, alpha = aikainen testi,
+   secret = sisäpiirin koekäyttö. */
+const STAGE_CLASS = {
+  ga: "stage--ga",
+  beta: "stage--beta",
+  alpha: "stage--alpha",
+  secret: "stage--secret",
 };
 
 /* Alustan ikoni (teksti tulee i18n.js:stä, ks. platforms).

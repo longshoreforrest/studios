@@ -130,7 +130,7 @@
     contact.href = "mailto:" + STUDIO.email;
     $("#year").textContent = "2026";
 
-    const released = VISIBLE_GAMES.filter((g) => g.status === "released").length;
+    const released = VISIBLE_GAMES.filter((g) => g.stage === "ga").length;
     const stats = [
       { n: VISIBLE_GAMES.length, label: L().ui.statGames },
       { n: released, label: L().ui.statReleased },
@@ -144,10 +144,11 @@
   }
 
   /* ---------- Pelikortit ---------- */
-  function statusBadge(g) {
-    const cls = STATUS_CLASS[g.status] || "status--proto";
-    const label = L().status[g.status] || g.status;
-    return `<span class="card__status ${cls}">${esc(label)}</span>`;
+  function stageBadge(g) {
+    const cls = STAGE_CLASS[g.stage] || "stage--beta";
+    const label = (L().stages && L().stages[g.stage]) || g.stage;
+    const hint = (L().stageHints && L().stageHints[g.stage]) || "";
+    return `<span class="card__status ${cls}" title="${esc(hint)}">${esc(label)}</span>`;
   }
 
   function coverHTML(g) {
@@ -155,7 +156,7 @@
     const inner = g.cover
       ? `<img src="${esc(g.cover)}" alt="${esc(g.title)}" loading="lazy" />`
       : `<span class="card__cover-emoji">${g.emoji}</span>`;
-    return `<div class="card__cover" style="${grad}">${inner}${statusBadge(g)}</div>`;
+    return `<div class="card__cover" style="${grad}">${inner}${stageBadge(g)}</div>`;
   }
 
   function downloadBtnHTML(g) {
@@ -234,7 +235,7 @@
     const t = L().games[g.id] || { tagline: "", description: "", tags: [] };
     const tags = (t.tags || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("");
     return `
-      <article class="card reveal ${featured ? "card--featured" : ""}" data-status="${g.status}">
+      <article class="card reveal ${featured ? "card--featured" : ""}" data-stage="${g.stage}">
         ${coverHTML(g)}
         <div class="card__body">
           <h3 class="card__title">${g.emoji} ${esc(g.title)}</h3>
@@ -260,13 +261,13 @@
     function paint(filter) {
       currentFilter = filter;
       grid.innerHTML = "";
-      VISIBLE_GAMES.filter((g) => filter === "all" || g.status === filter).forEach((g) => {
+      VISIBLE_GAMES.filter((g) => filter === "all" || g.stage === filter).forEach((g) => {
         grid.insertAdjacentHTML("beforeend", cardHTML(g, false));
       });
       observeReveal();
     }
 
-    const filters = ["all", "released", "in-development", "prototype"];
+    const filters = ["all", "ga", "beta", "alpha"];
     const fhost = $("#filters");
     fhost.innerHTML = "";
     filters.forEach((key) => {

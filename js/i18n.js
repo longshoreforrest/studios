@@ -88,8 +88,14 @@ const I18N = {
         "Tavoite: julkaista oma peli Google Playssa",
       ],
     },
-    status: { released: "Julkaistu", "in-development": "Työn alla", prototype: "Prototyyppi" },
-    filters: { all: "Kaikki", released: "Julkaistut", "in-development": "Työn alla", prototype: "Prototyypit" },
+    stages: { ga: "Kaikille auki 🎉", beta: "Beta 🧪", alpha: "Alfa 🔧", secret: "Salainen 🤫" },
+    stageHints: {
+      ga: "Valmis kaikille — pelaa heti!",
+      beta: "Toimii melkein aina. Bugit kuuluvat seikkailuun.",
+      alpha: "Tuore ja vähän rikki — vain rohkeille testaajille.",
+      secret: "Hyssytään! Sisäpiirin koekäytössä.",
+    },
+    filters: { all: "Kaikki", ga: "Kaikille auki", beta: "Beta", alpha: "Alfa" },
     platforms: { web: "Pelaa selaimessa", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
@@ -171,8 +177,14 @@ const I18N = {
         "Goal: release his own game on Google Play",
       ],
     },
-    status: { released: "Released", "in-development": "In development", prototype: "Prototype" },
-    filters: { all: "All", released: "Released", "in-development": "In development", prototype: "Prototypes" },
+    stages: { ga: "Open to all 🎉", beta: "Beta 🧪", alpha: "Alpha 🔧", secret: "Secret 🤫" },
+    stageHints: {
+      ga: "Ready for everyone — play now!",
+      beta: "Works almost always. Bugs are part of the adventure.",
+      alpha: "Fresh and a bit broken — for brave testers only.",
+      secret: "Shh! In private insider testing.",
+    },
+    filters: { all: "All", ga: "Open to all", beta: "Beta", alpha: "Alpha" },
     platforms: { web: "Play in browser", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
@@ -254,8 +266,14 @@ const I18N = {
         "Mål: släppa ett eget spel på Google Play",
       ],
     },
-    status: { released: "Släppt", "in-development": "Under arbete", prototype: "Prototyp" },
-    filters: { all: "Alla", released: "Släppta", "in-development": "Under arbete", prototype: "Prototyper" },
+    stages: { ga: "Öppet för alla 🎉", beta: "Beta 🧪", alpha: "Alfa 🔧", secret: "Hemlig 🤫" },
+    stageHints: {
+      ga: "Klart för alla — spela nu!",
+      beta: "Funkar nästan jämt. Buggar hör till äventyret.",
+      alpha: "Färskt och lite trasigt — bara för modiga testare.",
+      secret: "Tyst! I hemligt insider-test.",
+    },
+    filters: { all: "Alla", ga: "Öppet för alla", beta: "Beta", alpha: "Alfa" },
     platforms: { web: "Spela i webbläsaren", android: "Android", ios: "iPhone", windows: "PC" },
     games: {
       "lisko-racing": {
