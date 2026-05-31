@@ -46,7 +46,7 @@ const I18N = {
       navAbout: "Studio",
       heroEyebrow: "Indie-pelistudio",
       heroCta1: "Selaa pelejä",
-      heroCta2: "Tapaa kehittäjä",
+      heroCta2: "Tutustu kehittäjään",
       statGames: "peliä",
       statReleased: "julkaistua",
       statDevAge: "v. pääkehittäjä",
