@@ -55,7 +55,7 @@ const GAMES = [
     stage: "ga",
     tech: "HTML5 Canvas · Capacitor · Firebase",
     accent: ["#22c55e", "#0ea5e9"],
-    cover: "assets/covers/lisko.png",
+    cover: "assets/covers/lisko-racing.jpg",
     featured: true,
     public: true,
     links: {
