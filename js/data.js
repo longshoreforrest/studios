@@ -39,7 +39,7 @@ const DEVELOPER = {
   handle: "Hacker_Lisko",
   age: 11,
   emoji: "🦎",
-  avatar: "assets/covers/lisko-racing.jpg", // profiilikuva = Lisko Racing -maskotti
+  avatar: "assets/covers/hacker-lisko.jpg", // Hacker_Lisko + Viuhti -profiilikuva
   links: {
     // Täytä todelliset profiilit kun ne ovat olemassa.
     github: null,
