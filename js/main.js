@@ -290,7 +290,10 @@
       observeReveal();
     }
 
-    const filters = ["all", "ga", "beta", "alpha"];
+    // Suodattimet vain niistä vaiheista joita peleillä oikeasti on.
+    const STAGE_ORDER = ["ga", "beta", "wip", "alpha", "secret"];
+    const present = STAGE_ORDER.filter((s) => VISIBLE_GAMES.some((g) => g.stage === s));
+    const filters = ["all", ...present];
     const fhost = $("#filters");
     fhost.innerHTML = "";
     filters.forEach((key) => {

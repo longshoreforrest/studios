@@ -67,9 +67,9 @@ const GAMES = [
   },
   {
     id: "bettercraft",
-    title: "BetterCraft",
+    title: "FutureCraft",
     emoji: "⛏️",
-    stage: "beta",
+    stage: "wip",
     tech: "Three.js · Electron · Firebase",
     accent: ["#65a30d", "#155e75"],
     cover: null,
@@ -110,6 +110,7 @@ const THEMES = [
 const STAGE_CLASS = {
   ga: "stage--ga",
   beta: "stage--beta",
+  wip: "stage--wip",
   alpha: "stage--alpha",
   secret: "stage--secret",
 };
