@@ -89,7 +89,7 @@ const I18N = {
         "ovat ladattavissa suoraan tältä sivulta.",
     },
     developer: {
-      role: "Pääkehittäjä {age}v & perustaja",
+      role: "Studion Pääkehittäjä {age}v",
       bio:
         "11-vuotias pääkehittäjä ja studion perustaja. Koodaa pelejä " +
         "intohimosta: matelijoista, autoista, lumisodasta ja kaikesta mikä " +
@@ -191,7 +191,7 @@ const I18N = {
         "directly from this site.",
     },
     developer: {
-      role: "Lead developer ({age} yo) & founder",
+      role: "Studio's lead developer ({age} yo)",
       bio:
         "An 11-year-old lead developer and studio founder. Codes games out of " +
         "passion: reptiles, cars, snowball fights and everything fun. The " +
@@ -291,7 +291,7 @@ const I18N = {
         "från den här sidan.",
     },
     developer: {
-      role: "Huvudutvecklare {age} år & grundare",
+      role: "Studions huvudutvecklare {age} år",
       bio:
         "En 11-årig huvudutvecklare och studiogrundare. Kodar spel av " +
         "passion: reptiler, bilar, snöbollskrig och allt som är roligt. " +
