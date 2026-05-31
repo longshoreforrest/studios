@@ -245,6 +245,7 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
 }
 .dev-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .dev-card__handle { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; }
+.dev-card__realname { color: var(--muted); font-weight: 600; font-size: 1.05rem; margin: 2px 0 0; }
 .dev-card__role { color: var(--accent); font-weight: 700; }
 .dev-card__bio { color: var(--muted); margin: 14px 0; }
 .dev-card__facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }

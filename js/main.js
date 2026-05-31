@@ -347,6 +347,7 @@
       <div class="dev-card__avatar">${d.avatar ? `<img src="${esc(d.avatar)}" alt="${esc(d.handle)}" />` : d.emoji}</div>
       <div>
         <h3 class="dev-card__handle">${esc(d.handle)}</h3>
+        ${d.realName ? `<p class="dev-card__realname">${esc(d.realName)}</p>` : ""}
         <p class="dev-card__role">${esc(role)}</p>
         <p class="dev-card__bio">${esc(tr.bio)}</p>
         <ul class="dev-card__facts">${facts}</ul>

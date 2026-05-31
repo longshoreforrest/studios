@@ -37,6 +37,7 @@ const STUDIO = {
 
 const DEVELOPER = {
   handle: "Hacker_Lisko",
+  realName: "Matias Pitkäranta",
   age: 11,
   emoji: "🦎",
   avatar: "assets/covers/hacker-lisko.jpg", // Hacker_Lisko + Viuhti -profiilikuva
