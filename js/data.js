@@ -52,6 +52,7 @@ const DEVELOPER = {
 const ADVISOR = {
   name: "Forrest Longshore / Tapio Pitkäranta",
   emoji: "🧭",
+  image: "assets/hirmulisko_profile.jpeg", // Isälisko-neuvonantajan kuva
   // UTM-parametrit: CV:n analytiikka (MyPublicAnalytics, site 'cv') tunnistaa
   // näistä että kävijä tuli Studios-sivulta. Beacon lukee utm_source/medium/campaign.
   cv: "https://longshoreforrest.github.io/cv/?utm_source=studios&utm_medium=referral&utm_campaign=advisor",

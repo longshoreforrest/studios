@@ -358,7 +358,7 @@
     if (adv) {
       adv.innerHTML = `
         <div class="advisor-card reveal">
-          <span class="advisor-card__icon">${ADVISOR.emoji}</span>
+          <span class="advisor-card__icon">${ADVISOR.image ? `<img src="${esc(ADVISOR.image)}" alt="${esc(ADVISOR.name)}" />` : ADVISOR.emoji}</span>
           <div class="advisor-card__body">
             <p class="advisor-card__role">${esc(L().ui.advisor)}</p>
             <h4 class="advisor-card__name">${esc(ADVISOR.name)}</h4>

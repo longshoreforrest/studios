@@ -263,10 +263,11 @@ section { padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 40px); }
 }
 .advisor-card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .advisor-card__icon {
-  font-size: 2rem; width: 58px; height: 58px; flex: none; display: grid; place-items: center;
+  font-size: 2rem; width: 76px; height: 76px; flex: none; display: grid; place-items: center;
   border-radius: 14px; background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); overflow: hidden; align-self: flex-start;
 }
+.advisor-card__icon img { width: 100%; height: 100%; object-fit: cover; }
 .advisor-card__role { color: var(--accent); font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; margin: 0; }
 .advisor-card__name { font-size: 1.15rem; font-weight: 800; margin: 2px 0 6px; }
 .advisor-card__bio { color: var(--muted); font-size: .92rem; margin: 0 0 8px; max-width: 640px; }
