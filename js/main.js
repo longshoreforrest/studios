@@ -220,11 +220,16 @@
     if (!g) return;
     const modal = $("#downloadModal");
     $("#modalTitle").textContent = `${L().ui.downloadApp} · ${g.title}`;
-    // Suosittele käyttäjän laitteen alustaa (vain jos sille on oikea lataus).
-    const recommended = g.links[USER_DEVICE] ? USER_DEVICE : null;
+    // Suosittele käyttäjän laitteen alustaa; jos sille ei ole latausta mutta
+    // selainpeli on tarjolla (esim. iPhone/PC), suositellaan "Pelaa selaimessa".
+    const recommended = g.links[USER_DEVICE]
+      ? USER_DEVICE
+      : (g.links.web ? "web" : null);
     const order = recommended
       ? [recommended, ...PICKER_PLATFORMS.filter((k) => k !== recommended)]
       : PICKER_PLATFORMS.slice();
+    // Näytä vain alustat joille on oikea linkki (ei "Tulossa"-paikkamerkkejä).
+    const shown = order.filter((k) => g.links[k]);
 
     $("#modalSub").textContent = recommended
       ? `${L().ui.deviceHint} ${L().platforms[recommended]}`
@@ -232,7 +237,7 @@
 
     const opts = $("#modalOptions");
     opts.innerHTML = "";
-    order.forEach((key) => {
+    shown.forEach((key) => {
       const url = g.links[key];
       const label = L().platforms[key];
       const icon = PLATFORM_ICON[key];

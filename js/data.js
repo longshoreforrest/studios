@@ -70,10 +70,10 @@ const GAMES = [
     featured: true,
     public: true,
     links: {
+      // Android-laitteille natiivi APK, muille laitteille "Pelaa selaimessa"
+      // (web-online). Vanhat zip-paketit (windows/ios) poistettu — web kattaa ne.
       web: "liskoracing/index.html", // Pelaa selaimessa (web-julkaisu, ks. PublishWeb.MD)
-      windows: "downloads/lisko-racing.zip",
       android: "downloads/builds/lisko-racing/android/lisko-racing.apk", // oikea APK (debug-build)
-      ios: "downloads/lisko-racing.zip",
     },
     versions: ["Lisko Racing v1 (selain)", "Lisko Racing v2 (mobiili)"],
   },
